@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: ndx-ecg
+Version: 0.1.0
+Summary: This extension is developed to extend NWB data standards to incorporate ECG recordings.
+Home-page: 
+Author: Hamidreza Alimohammadi ([AT]DefenseCircuitsLab)
+Author-email: alimohammadi.hamidreza@gmail.com
+License: MIT
+Keywords: NeurodataWithoutBorders,NWB,nwb-extension,ndx-extension
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Description-Content-Type: text/markdown; charset=UTF-8
+License-File: LICENSE.txt

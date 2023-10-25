@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. ndx-ecg &mdash; ndx-ecg alpha documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=1f169f65"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release Notes" href="release_notes.html" />
+    <link rel="prev" title="1. Overview" href="description.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ndx-ecg
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="description.html">1. Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extension Specification</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. ndx-ecg</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#format-overview">1.1. Format Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hdmf-type-namespace-doc">1.1.1. ndx-ecg</a></li>
+<li><a class="reference internal" href="#type-hierarchy">1.1.2. Type Hierarchy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#type-specifications">1.2. Type Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ndx-ecg-extensions-yaml">1.2.1. ndx-ecg.extensions.yaml</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cardiacseries">1.2.1.1. CardiacSeries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecg">1.2.1.2. ECG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#heartrate">1.2.1.3. HeartRate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auxiliaryanalysis">1.2.1.4. AuxiliaryAnalysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecgchannelsgroup">1.2.1.5. ECGChannelsGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecgrecdevice">1.2.1.6. ECGRecDevice</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#schema-sources">1.3. Schema Sources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hdmf-type-namespace-src">1.3.1. ndx-ecg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ndx-ecg-extensions-yaml-src">1.3.2. ndx-ecg.extensions.yaml</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sec-cardiacseries-src">1.3.2.1. CardiacSeries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-ecg-src">1.3.2.2. ECG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-heartrate-src">1.3.2.3. HeartRate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-auxiliaryanalysis-src">1.3.2.4. AuxiliaryAnalysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-ecgchannelsgroup-src">1.3.2.5. ECGChannelsGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-ecgrecdevice-src">1.3.2.6. ECGRecDevice</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">History &amp; Legal</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html#legal">Legal</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ndx-ecg</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>ndx-ecg</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/format.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ndx-ecg">
+<span id="id1"></span><h1><span class="section-number">1. </span>ndx-ecg<a class="headerlink" href="#ndx-ecg" title="Link to this heading">¶</a></h1>
+<p>Version alpha Oct 25, 2023</p>
+<section id="format-overview">
+<h2><span class="section-number">1.1. </span>Format Overview<a class="headerlink" href="#format-overview" title="Link to this heading">¶</a></h2>
+<section id="hdmf-type-namespace-doc">
+<span id="id2"></span><h3><span class="section-number">1.1.1. </span>ndx-ecg<a class="headerlink" href="#hdmf-type-namespace-doc" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Description:</strong> This extension is developed to extend NWB data standards to incorporate ECG recordings.</p></li>
+<li><p><strong>Name:</strong> ndx-ecg</p></li>
+<li><p><strong>Version:</strong> 0.1.0</p></li>
+<li><dl class="simple">
+<dt><strong>Authors:</strong></dt><dd><ul>
+<li><p>Hamidreza Alimohammadi ([AT]DefenseCircuitsLab)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Contacts:</strong></dt><dd><ul>
+<li><p><a class="reference external" href="mailto:alimohammadi&#46;hamidreza&#37;&#52;&#48;gmail&#46;com">alimohammadi<span>&#46;</span>hamidreza<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Schema:</strong></dt><dd><ul>
+<li><p><strong>namespace:</strong> core</p></li>
+<li><p><strong>neurodata_types:</strong> [‘TimeSeries’, ‘Device’, ‘NWBDataInterface’, ‘NWBContainer’]</p></li>
+<li><p><strong>namespace:</strong> hdmf-common</p></li>
+<li><p><strong>neurodata_types:</strong> [‘DynamicTable’]</p></li>
+<li><p><strong>source:</strong> ndx-ecg.extensions.yaml</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="type-hierarchy">
+<span id="data-type-hierarchy"></span><h3><span class="section-number">1.1.2. </span>Type Hierarchy<a class="headerlink" href="#type-hierarchy" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#sec-ecgrecdevice"><span class="std std-ref">ECGRecDevice</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference internal" href="#sec-auxiliaryanalysis"><span class="std std-ref">AuxiliaryAnalysis</span></a></p></li>
+<li><p><a class="reference internal" href="#sec-ecg"><span class="std std-ref">ECG</span></a></p></li>
+<li><p><a class="reference internal" href="#sec-heartrate"><span class="std std-ref">HeartRate</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">TimeSeries</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-data" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Data</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-elementidentifiers" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">ElementIdentifiers</span></a></p></li>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">VectorData</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+<section id="type-specifications">
+<h2><span class="section-number">1.2. </span>Type Specifications<a class="headerlink" href="#type-specifications" title="Link to this heading">¶</a></h2>
+<section id="ndx-ecg-extensions-yaml">
+<span id="id3"></span><h3><span class="section-number">1.2.1. </span>ndx-ecg.extensions.yaml<a class="headerlink" href="#ndx-ecg-extensions-yaml" title="Link to this heading">¶</a></h3>
+<section id="cardiacseries">
+<span id="sec-cardiacseries"></span><h4><span class="section-number">1.2.1.1. </span>CardiacSeries<a class="headerlink" href="#cardiacseries" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> A group to store standardized cardiac time-series, e.g., ECG and HeartRate, including acquisitions, processed cardiac series or auxiliary analysis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CardiacSeries</span></code> extends <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">TimeSeries</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">TimeSeries</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-cardiacseries-src"><span class="std std-numref">Section 1.3.2.1</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="CardiacSeries" src="_images/CardiacSeries.png" />
+</figure>
+<span id="table-cardiacseries-data"></span><table class="longtable docutils align-default" id="id14">
+<caption><span class="caption-number">Table 1.1 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;CardiacSeries&gt;</span><a class="headerlink" href="#id14" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;CardiacSeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;CardiacSeries&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.data</p></td>
+<td><p>Dataset</p></td>
+<td><p>Associated cardiac-series data. Note that in general, this data could be a numerical array,the columns of which corresponding to the recording channels, indexed similarly as the rows of the dynamic table passed for the channels argument. Notice the difference between electrodes table and the recording channels.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> numeric</p></li>
+<li><p><strong>Name:</strong> data</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>..unit</p></td>
+<td><p>Attribute</p></td>
+<td><p>Default measurement unit of the corresponding cardiac-series.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> unit</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>..which_channels</p></td>
+<td><p>Attribute</p></td>
+<td><p>Determine that the columns of data here corresponds to which recording channels. By default it is meant to be a one to one map to the recording channels table, passed to the ECGRecDevice container. A use case can be like &lt;0: ch_0, 1:ch_2&gt;, implying that the data is of two columns and the 0-th and 1-th columns correspond to ch_0 and ch_2 of all the recording channels, respectively.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Value:</strong> One to one map with all the channels in ECGRecDevice.</p></li>
+<li><p><strong>Name:</strong> which_channels</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>..conversion</p></td>
+<td><p>Attribute</p></td>
+<td><p>Global conversion factor for corresponding cardiac-series. See also channel_conversion. finally, the stored data-set for each channel will be returned in default unit using the scaling as: data-in-default-unit = data * conversion * channel_conversion.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> float32</p></li>
+<li><p><strong>Value:</strong> 1.0</p></li>
+<li><p><strong>Name:</strong> conversion</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.channel_conversion</p></td>
+<td><p>Dataset</p></td>
+<td><p>Conventional NWB channel-specific conversion factor. Default value would be 1. See also conversion. Finally, the stored data-set for each channel will be returned in default unit using the scaling as: data-in-default-unit = data * conversion * channel_conversion.</p>
+<ul class="simple">
+<li><p><strong>Quantity:</strong> 0 or 1</p></li>
+<li><p><strong>Data Type:</strong> float32</p></li>
+<li><p><strong>Name:</strong> channel_conversion</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>..axis</p></td>
+<td><p>Attribute</p></td>
+<td><p>Zero-indexed axis of the data that the channel-specific conversion factor corresponds to.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> int32</p></li>
+<li><p><strong>Value:</strong> 1</p></li>
+<li><p><strong>Name:</strong> axis</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.channels_group</p></td>
+<td><p>Link</p></td>
+<td><p>Link to the ECGChannelsGroup as a reference for recording channels, recording electrodes and the recording device.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
+<li><p><strong>Name:</strong> channels_group</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<span id="table-cardiacseries-groups"></span><table class="longtable docutils align-default" id="id15">
+<caption><span class="caption-number">Table 1.2 </span><span class="caption-text">Groups contained in &lt;CardiacSeries&gt;</span><a class="headerlink" href="#id15" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;CardiacSeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;CardiacSeries&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.channels_group</p></td>
+<td><p>Link</p></td>
+<td><p>Link to the ECGChannelsGroup as a reference for recording channels, recording electrodes and the recording device.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
+<li><p><strong>Name:</strong> channels_group</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ecg">
+<span id="sec-ecg"></span><h4><span class="section-number">1.2.1.2. </span>ECG<a class="headerlink" href="#ecg" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> Specific data interface for ElectroCardioGram time-series (raw/processed).</p>
+<p><code class="docutils literal notranslate"><span class="pre">ECG</span></code> extends <code class="docutils literal notranslate"><span class="pre">NWBDataInterface</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Default Name:</strong> ECG</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-ecg-src"><span class="std std-numref">Section 1.3.2.2</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="ECG" src="_images/ECG.png" />
+</figure>
+<span id="table-ecg-data"></span><table class="longtable docutils align-default" id="id16">
+<caption><span class="caption-number">Table 1.3 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECG&gt;</span><a class="headerlink" href="#id16" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;ECG&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;ECG&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecg"><span class="std std-ref">ECG</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Default Name:</strong> ECG</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.processing_description</p></td>
+<td><p>Attribute</p></td>
+<td><p>Explain how the time-series is processed or whether it is a raw acquisition.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Name:</strong> processing_description</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<span id="table-ecg-groups"></span><table class="longtable docutils align-default" id="id17">
+<caption><span class="caption-number">Table 1.4 </span><span class="caption-text">Groups contained in &lt;ECG&gt;</span><a class="headerlink" href="#id17" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;ECG&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;ECG&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecg"><span class="std std-ref">ECG</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Default Name:</strong> ECG</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.&lt;<a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a>&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>CardiacSeries object representing the ElectroCardioGram (ECG). Whether raw or processed.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+<li><p><strong>Quantity:</strong> 1 or more</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<section id="groups-cardiacseries">
+<h5><span class="section-number">1.2.1.2.1. </span>Groups: &lt;CardiacSeries&gt;<a class="headerlink" href="#groups-cardiacseries" title="Link to this heading">¶</a></h5>
+<p>CardiacSeries object representing the ElectroCardioGram (ECG). Whether raw or processed.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+<li><p><strong>Quantity:</strong> 1 or more</p></li>
+</ul>
+</section>
+</section>
+<section id="heartrate">
+<span id="sec-heartrate"></span><h4><span class="section-number">1.2.1.3. </span>HeartRate<a class="headerlink" href="#heartrate" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> Specific data interface for HeartRate.</p>
+<p><code class="docutils literal notranslate"><span class="pre">HeartRate</span></code> extends <code class="docutils literal notranslate"><span class="pre">NWBDataInterface</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Default Name:</strong> HeartRate</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-heartrate-src"><span class="std std-numref">Section 1.3.2.3</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="HeartRate" src="_images/HeartRate.png" />
+</figure>
+<span id="table-heartrate-data"></span><table class="longtable docutils align-default" id="id18">
+<caption><span class="caption-number">Table 1.5 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;HeartRate&gt;</span><a class="headerlink" href="#id18" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;HeartRate&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;HeartRate&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-heartrate"><span class="std std-ref">HeartRate</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Default Name:</strong> HeartRate</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.processing_description</p></td>
+<td><p>Attribute</p></td>
+<td><p>Explain how the time-series is processed or whether it is a raw acquisition.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Name:</strong> processing_description</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<span id="table-heartrate-groups"></span><table class="longtable docutils align-default" id="id19">
+<caption><span class="caption-number">Table 1.6 </span><span class="caption-text">Groups contained in &lt;HeartRate&gt;</span><a class="headerlink" href="#id19" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;HeartRate&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;HeartRate&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-heartrate"><span class="std std-ref">HeartRate</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Default Name:</strong> HeartRate</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.&lt;<a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a>&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>CardiacSeries object representing the HearRate (HR). Whether raw or processed.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+<li><p><strong>Quantity:</strong> 1 or more</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<section id="id4">
+<h5><span class="section-number">1.2.1.3.1. </span>Groups: &lt;CardiacSeries&gt;<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h5>
+<p>CardiacSeries object representing the HearRate (HR). Whether raw or processed.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+<li><p><strong>Quantity:</strong> 1 or more</p></li>
+</ul>
+</section>
+</section>
+<section id="auxiliaryanalysis">
+<span id="sec-auxiliaryanalysis"></span><h4><span class="section-number">1.2.1.4. </span>AuxiliaryAnalysis<a class="headerlink" href="#auxiliaryanalysis" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> Specific data interface for whatever relevant auxiliary in-between analysis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AuxiliaryAnalysis</span></code> extends <code class="docutils literal notranslate"><span class="pre">NWBDataInterface</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Default Name:</strong> AuxiliaryAnalysis</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-auxiliaryanalysis-src"><span class="std std-numref">Section 1.3.2.4</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="AuxiliaryAnalysis" src="_images/AuxiliaryAnalysis.png" />
+</figure>
+<span id="table-auxiliaryanalysis-data"></span><table class="longtable docutils align-default" id="id20">
+<caption><span class="caption-number">Table 1.7 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;AuxiliaryAnalysis&gt;</span><a class="headerlink" href="#id20" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;AuxiliaryAnalysis&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;AuxiliaryAnalysis&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-auxiliaryanalysis"><span class="std std-ref">AuxiliaryAnalysis</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Default Name:</strong> AuxiliaryAnalysis</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.processing_description</p></td>
+<td><p>Attribute</p></td>
+<td><p>Explain how the analysis is processed.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Name:</strong> processing_description</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<span id="table-auxiliaryanalysis-groups"></span><table class="longtable docutils align-default" id="id21">
+<caption><span class="caption-number">Table 1.8 </span><span class="caption-text">Groups contained in &lt;AuxiliaryAnalysis&gt;</span><a class="headerlink" href="#id21" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;AuxiliaryAnalysis&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;AuxiliaryAnalysis&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-auxiliaryanalysis"><span class="std std-ref">AuxiliaryAnalysis</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Default Name:</strong> AuxiliaryAnalysis</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.&lt;<a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a>&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>CardiacSeries object representing the auxiliary analysis.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+<li><p><strong>Quantity:</strong> 1 or more</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<section id="id5">
+<h5><span class="section-number">1.2.1.4.1. </span>Groups: &lt;CardiacSeries&gt;<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h5>
+<p>CardiacSeries object representing the auxiliary analysis.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-cardiacseries"><span class="std std-ref">CardiacSeries</span></a></p></li>
+<li><p><strong>Quantity:</strong> 1 or more</p></li>
+</ul>
+</section>
+</section>
+<section id="ecgchannelsgroup">
+<span id="sec-ecgchannelsgroup"></span><h4><span class="section-number">1.2.1.5. </span>ECGChannelsGroup<a class="headerlink" href="#ecgchannelsgroup" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> Information of all channels from which the corresponding CardiacSeries is generated. Note that these channels can represent single recording electrodes or differential recordings.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ECGChannelsGroup</span></code> extends <code class="docutils literal notranslate"><span class="pre">NWBContainer</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-ecgchannelsgroup-src"><span class="std std-numref">Section 1.3.2.5</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="ECGChannelsGroup" src="_images/ECGChannelsGroup.png" />
+</figure>
+<span id="table-ecgchannelsgroup-data"></span><table class="longtable docutils align-default" id="id22">
+<caption><span class="caption-number">Table 1.9 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECGChannelsGroup&gt;</span><a class="headerlink" href="#id22" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;ECGChannelsGroup&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;ECGChannelsGroup&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.group_description</p></td>
+<td><p>Attribute</p></td>
+<td><p>Describe the recording channels for this specific experiment session.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Name:</strong> group_description</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.recording_device</p></td>
+<td><p>Link</p></td>
+<td><p>Link to the ECGRecDevice used to record cardiac signals.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-ecgrecdevice"><span class="std std-ref">ECGRecDevice</span></a></p></li>
+<li><p><strong>Name:</strong> recording_device</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<span id="table-ecgchannelsgroup-groups"></span><table class="longtable docutils align-default" id="id23">
+<caption><span class="caption-number">Table 1.10 </span><span class="caption-text">Groups contained in &lt;ECGChannelsGroup&gt;</span><a class="headerlink" href="#id23" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;ECGChannelsGroup&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;ECGChannelsGroup&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.recording_device</p></td>
+<td><p>Link</p></td>
+<td><p>Link to the ECGRecDevice used to record cardiac signals.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-ecgrecdevice"><span class="std std-ref">ECGRecDevice</span></a></p></li>
+<li><p><strong>Name:</strong> recording_device</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.electrodes</p></td>
+<td><p>Group</p></td>
+<td><p>A dynamic table of the implemented electrodes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Name:</strong> electrodes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.channels</p></td>
+<td><p>Group</p></td>
+<td><p>A dynamic table of the ECG recording channels.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Name:</strong> channels</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<section id="groups-electrodes">
+<h5><span class="section-number">1.2.1.5.1. </span>Groups: electrodes<a class="headerlink" href="#groups-electrodes" title="Link to this heading">¶</a></h5>
+<p>A dynamic table of the implemented electrodes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Name:</strong> electrodes</p></li>
+</ul>
+</section>
+<section id="groups-channels">
+<h5><span class="section-number">1.2.1.5.2. </span>Groups: channels<a class="headerlink" href="#groups-channels" title="Link to this heading">¶</a></h5>
+<p>A dynamic table of the ECG recording channels.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Name:</strong> channels</p></li>
+</ul>
+</section>
+</section>
+<section id="ecgrecdevice">
+<span id="sec-ecgrecdevice"></span><h4><span class="section-number">1.2.1.6. </span>ECGRecDevice<a class="headerlink" href="#ecgrecdevice" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> ECG recording device.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ECGRecDevice</span></code> extends <code class="docutils literal notranslate"><span class="pre">Device</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-ecgrecdevice-src"><span class="std std-numref">Section 1.3.2.6</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="ECGRecDevice" src="_images/ECGRecDevice.png" />
+</figure>
+<span id="table-ecgrecdevice-data"></span><table class="longtable docutils align-default" id="id24">
+<caption><span class="caption-number">Table 1.11 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECGRecDevice&gt;</span><a class="headerlink" href="#id24" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;ECGRecDevice&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;ECGRecDevice&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgrecdevice"><span class="std std-ref">ECGRecDevice</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.filtering</p></td>
+<td><p>Attribute</p></td>
+<td><p>Explain analogue frequency filtering of the ECG acquisition device, if any is implemented.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Name:</strong> filtering</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.gain</p></td>
+<td><p>Attribute</p></td>
+<td><p>Explain the gain settings of the ECG acquisition device.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Name:</strong> gain</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.offset</p></td>
+<td><p>Attribute</p></td>
+<td><p>Explain what the baseline of the ECG signal is set to.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Name:</strong> offset</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.synchronization</p></td>
+<td><p>Attribute</p></td>
+<td><p>Explain the synchronization settings if the ECG recording device is separately connected to another recording system.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Name:</strong> synchronization</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.endpoint_recording_device</p></td>
+<td><p>Link</p></td>
+<td><p>endpoint recording device to which the ECG recording device is connected.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a></p></li>
+<li><p><strong>Name:</strong> endpoint_recording_device</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<span id="table-ecgrecdevice-groups"></span><table class="longtable docutils align-default" id="id25">
+<caption><span class="caption-number">Table 1.12 </span><span class="caption-text">Groups contained in &lt;ECGRecDevice&gt;</span><a class="headerlink" href="#id25" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;ECGRecDevice&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;ECGRecDevice&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgrecdevice"><span class="std std-ref">ECGRecDevice</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.endpoint_recording_device</p></td>
+<td><p>Link</p></td>
+<td><p>endpoint recording device to which the ECG recording device is connected.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a></p></li>
+<li><p><strong>Name:</strong> endpoint_recording_device</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="schema-sources">
+<span id="hdmf-type-specification-sources"></span><h2><span class="section-number">1.3. </span>Schema Sources<a class="headerlink" href="#schema-sources" title="Link to this heading">¶</a></h2>
+<p><strong>Source Specification:</strong> see <a class="reference internal" href="#hdmf-type-namespace-src"><span class="std std-numref">Section 1.3.1</span></a></p>
+<section id="hdmf-type-namespace-src">
+<span id="id6"></span><h3><span class="section-number">1.3.1. </span>ndx-ecg<a class="headerlink" href="#hdmf-type-namespace-src" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong> see <a class="reference internal" href="#hdmf-type-namespace-doc"><span class="std std-numref">Section 1.1.1</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">author</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hamidreza Alimohammadi ([AT]DefenseCircuitsLab)</span>
+<span class="linenos"> 3</span><span class="nt">contact</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alimohammadi.hamidreza@gmail.com</span>
+<span class="linenos"> 5</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">This extension is developed to extend NWB data standards to incorporate ECG recordings.</span>
+<span class="linenos"> 6</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ndx-ecg</span>
+<span class="linenos"> 7</span><span class="nt">schema</span><span class="p">:</span>
+<span class="linenos"> 8</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">neurodata_types</span><span class="p">:</span>
+<span class="linenos">10</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TimeSeries</span>
+<span class="linenos">11</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Device</span>
+<span class="linenos">12</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBDataInterface</span>
+<span class="linenos">13</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBContainer</span>
+<span class="linenos">14</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hdmf-common</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">neurodata_types</span><span class="p">:</span>
+<span class="linenos">16</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DynamicTable</span>
+<span class="linenos">17</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ndx-ecg.extensions.yaml</span>
+<span class="linenos">18</span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
+</pre></div>
+</div>
+</section>
+<section id="ndx-ecg-extensions-yaml-src">
+<span id="id7"></span><h3><span class="section-number">1.3.2. </span>ndx-ecg.extensions.yaml<a class="headerlink" href="#ndx-ecg-extensions-yaml-src" title="Link to this heading">¶</a></h3>
+<section id="sec-cardiacseries-src">
+<span id="id8"></span><h4><span class="section-number">1.3.2.1. </span>CardiacSeries<a class="headerlink" href="#sec-cardiacseries-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">TimeSeries</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-cardiacseries"><span class="std std-numref">Section 1.2.1.1</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">datasets</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Default measurement unit of the corresponding cardiac-series.</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unit</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Determine</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">columns</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">here</span><span class="nv"> </span><span class="s">corresponds</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">which</span><span class="nv"> </span><span class="s">recording</span><span class="nv"> </span><span class="s">channels.</span>
+<span class="linenos"> 7</span><span class="w">      </span><span class="s">By</span><span class="nv"> </span><span class="s">default</span><span class="nv"> </span><span class="s">it</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">meant</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">map</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">recording</span><span class="nv"> </span><span class="s">channels</span><span class="nv"> </span><span class="s">table,</span>
+<span class="linenos"> 8</span><span class="w">      </span><span class="s">passed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">ECGRecDevice</span><span class="nv"> </span><span class="s">container.</span><span class="nv"> </span><span class="s">A</span><span class="nv"> </span><span class="s">use</span><span class="nv"> </span><span class="s">case</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">like</span><span class="nv"> </span><span class="s">&lt;0:</span><span class="nv"> </span><span class="s">ch_0,</span><span class="nv"> </span><span class="s">1:ch_2&gt;,</span>
+<span class="linenos"> 9</span><span class="w">      </span><span class="s">implying</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">two</span><span class="nv"> </span><span class="s">columns</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">0-th</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">1-th</span><span class="nv"> </span><span class="s">columns</span><span class="nv"> </span><span class="s">correspond</span>
+<span class="linenos">10</span><span class="w">      </span><span class="s">to</span><span class="nv"> </span><span class="s">ch_0</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">ch_2</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">all</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">recording</span><span class="nv"> </span><span class="s">channels,</span><span class="nv"> </span><span class="s">respectively.&#39;</span>
+<span class="linenos">11</span><span class="w">    </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos">12</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">which_channels</span>
+<span class="linenos">13</span><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">One to one map with all the channels in ECGRecDevice.</span>
+<span class="linenos">14</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Global</span><span class="nv"> </span><span class="s">conversion</span><span class="nv"> </span><span class="s">factor</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">corresponding</span><span class="nv"> </span><span class="s">cardiac-series.</span><span class="nv"> </span><span class="s">See</span><span class="nv"> </span><span class="s">also</span><span class="nv"> </span><span class="s">channel_conversion.</span>
+<span class="linenos">15</span><span class="w">      </span><span class="s">finally,</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">stored</span><span class="nv"> </span><span class="s">data-set</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">each</span><span class="nv"> </span><span class="s">channel</span><span class="nv"> </span><span class="s">will</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">returned</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">default</span><span class="nv"> </span><span class="s">unit</span>
+<span class="linenos">16</span><span class="w">      </span><span class="s">using</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">scaling</span><span class="nv"> </span><span class="s">as:</span><span class="nv"> </span><span class="s">data-in-default-unit</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">conversion</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">channel_conversion.&#39;</span>
+<span class="linenos">17</span><span class="w">    </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float32</span>
+<span class="linenos">18</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conversion</span>
+<span class="linenos">19</span><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="linenos">20</span><span class="w">  </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Associated cardiac-series data. Note that in general, this data could be a</span>
+<span class="linenos">21</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">numerical array,the columns of which corresponding to the recording channels,</span>
+<span class="linenos">22</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">indexed similarly as the rows of the dynamic table passed for the channels argument.</span>
+<span class="linenos">23</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Notice the difference between electrodes table and the recording channels.</span>
+<span class="linenos">24</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numeric</span>
+<span class="linenos">25</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span>
+<span class="linenos">26</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos">27</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Zero-indexed axis of the data that the channel-specific conversion factor</span>
+<span class="linenos">28</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">corresponds to.</span>
+<span class="linenos">29</span><span class="w">    </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int32</span>
+<span class="linenos">30</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">axis</span>
+<span class="linenos">31</span><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos">32</span><span class="w">  </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Conventional</span><span class="nv"> </span><span class="s">NWB</span><span class="nv"> </span><span class="s">channel-specific</span><span class="nv"> </span><span class="s">conversion</span><span class="nv"> </span><span class="s">factor.</span><span class="nv"> </span><span class="s">Default</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">would</span><span class="nv"> </span><span class="s">be</span>
+<span class="linenos">33</span><span class="w">    </span><span class="s">1.</span><span class="nv"> </span><span class="s">See</span><span class="nv"> </span><span class="s">also</span><span class="nv"> </span><span class="s">conversion.</span><span class="nv"> </span><span class="s">Finally,</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">stored</span><span class="nv"> </span><span class="s">data-set</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">each</span><span class="nv"> </span><span class="s">channel</span><span class="nv"> </span><span class="s">will</span><span class="nv"> </span><span class="s">be</span>
+<span class="linenos">34</span><span class="w">    </span><span class="s">returned</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">default</span><span class="nv"> </span><span class="s">unit</span><span class="nv"> </span><span class="s">using</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">scaling</span><span class="nv"> </span><span class="s">as:</span><span class="nv"> </span><span class="s">data-in-default-unit</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">conversion</span>
+<span class="linenos">35</span><span class="w">    </span><span class="s">*</span><span class="nv"> </span><span class="s">channel_conversion.&#39;</span>
+<span class="linenos">36</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float32</span>
+<span class="linenos">37</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channel_conversion</span>
+<span class="linenos">38</span><span class="w">  </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;?&#39;</span>
+<span class="linenos">39</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A group to store standardized cardiac time-series, e.g., ECG and HeartRate, including</span>
+<span class="linenos">40</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">acquisitions, processed cardiac series or auxiliary analysis.</span>
+<span class="linenos">41</span><span class="nt">links</span><span class="p">:</span>
+<span class="linenos">42</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Link to the ECGChannelsGroup as a reference for recording channels, recording</span>
+<span class="linenos">43</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">electrodes and the recording device.</span>
+<span class="linenos">44</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channels_group</span>
+<span class="linenos">45</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGChannelsGroup</span>
+<span class="linenos">46</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CardiacSeries</span>
+<span class="linenos">47</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TimeSeries</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-ecg-src">
+<span id="id9"></span><h4><span class="section-number">1.3.2.2. </span>ECG<a class="headerlink" href="#sec-ecg-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-ecg"><span class="std std-numref">Section 1.2.1.2</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain how the time-series is processed or whether it is a raw acquisition.</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">processing_description</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 6</span><span class="nt">default_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECG</span>
+<span class="linenos"> 7</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Specific data interface for ElectroCardioGram time-series (raw/processed).</span>
+<span class="linenos"> 8</span><span class="nt">groups</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CardiacSeries object representing the ElectroCardioGram (ECG). Whether raw</span>
+<span class="linenos">10</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">or processed.</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CardiacSeries</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">+</span>
+<span class="linenos">13</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECG</span>
+<span class="linenos">14</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBDataInterface</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-heartrate-src">
+<span id="id10"></span><h4><span class="section-number">1.3.2.3. </span>HeartRate<a class="headerlink" href="#sec-heartrate-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-heartrate"><span class="std std-numref">Section 1.2.1.3</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain how the time-series is processed or whether it is a raw acquisition.</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">processing_description</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 6</span><span class="nt">default_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HeartRate</span>
+<span class="linenos"> 7</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Specific data interface for HeartRate.</span>
+<span class="linenos"> 8</span><span class="nt">groups</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CardiacSeries object representing the HearRate (HR). Whether raw or processed.</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CardiacSeries</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">+</span>
+<span class="linenos">12</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HeartRate</span>
+<span class="linenos">13</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBDataInterface</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-auxiliaryanalysis-src">
+<span id="id11"></span><h4><span class="section-number">1.3.2.4. </span>AuxiliaryAnalysis<a class="headerlink" href="#sec-auxiliaryanalysis-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-auxiliaryanalysis"><span class="std std-numref">Section 1.2.1.4</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain how the analysis is processed.</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">processing_description</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 6</span><span class="nt">default_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AuxiliaryAnalysis</span>
+<span class="linenos"> 7</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Specific data interface for whatever relevant auxiliary in-between analysis.</span>
+<span class="linenos"> 8</span><span class="nt">groups</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CardiacSeries object representing the auxiliary analysis.</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CardiacSeries</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">+</span>
+<span class="linenos">12</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AuxiliaryAnalysis</span>
+<span class="linenos">13</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBDataInterface</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-ecgchannelsgroup-src">
+<span id="id12"></span><h4><span class="section-number">1.3.2.5. </span>ECGChannelsGroup<a class="headerlink" href="#sec-ecgchannelsgroup-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-numref">Section 1.2.1.5</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe the recording channels for this specific experiment session.</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group_description</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 6</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Information of all channels from which the corresponding CardiacSeries is generated.</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Note that these channels can represent single recording electrodes or differential</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">recordings.</span>
+<span class="linenos"> 9</span><span class="nt">groups</span><span class="p">:</span>
+<span class="linenos">10</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A dynamic table of the implemented electrodes.</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">electrodes</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DynamicTable</span>
+<span class="linenos">13</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A dynamic table of the ECG recording channels.</span>
+<span class="linenos">14</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channels</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DynamicTable</span>
+<span class="linenos">16</span><span class="nt">links</span><span class="p">:</span>
+<span class="linenos">17</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Link to the ECGRecDevice used to record cardiac signals.</span>
+<span class="linenos">18</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recording_device</span>
+<span class="linenos">19</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGRecDevice</span>
+<span class="linenos">20</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGChannelsGroup</span>
+<span class="linenos">21</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBContainer</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-ecgrecdevice-src">
+<span id="id13"></span><h4><span class="section-number">1.3.2.6. </span>ECGRecDevice<a class="headerlink" href="#sec-ecgrecdevice-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">Device</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-ecgrecdevice"><span class="std std-numref">Section 1.2.1.6</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain analogue frequency filtering of the ECG acquisition device, if any</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">is implemented.</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filtering</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 7</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain the gain settings of the ECG acquisition device.</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gain</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">11</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain what the baseline of the ECG signal is set to.</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">offset</span>
+<span class="linenos">14</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">15</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain the synchronization settings if the ECG recording device is separately</span>
+<span class="linenos">16</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">connected to another recording system.</span>
+<span class="linenos">17</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos">18</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">synchronization</span>
+<span class="linenos">19</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">20</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECG recording device.</span>
+<span class="linenos">21</span><span class="nt">links</span><span class="p">:</span>
+<span class="linenos">22</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">endpoint recording device to which the ECG recording device is connected.</span>
+<span class="linenos">23</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">endpoint_recording_device</span>
+<span class="linenos">24</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Device</span>
+<span class="linenos">25</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGRecDevice</span>
+<span class="linenos">26</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Device</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="description.html" class="btn btn-neutral float-left" title="1. Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="release_notes.html" class="btn btn-neutral float-right" title="Release Notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Hamidreza Alimohammadi ([AT]DefenseCircuitsLab).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
