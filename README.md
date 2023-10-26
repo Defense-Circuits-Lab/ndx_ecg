@@ -145,7 +145,7 @@ ecg_device = ECGRecDevice(
     gain='100',
     offset='0',
     synchronization='taken care of via ...',
-    endpoint_recording_device=nwbfile.get_device('name_of_the_MRD')
+    endpoint_recording_device=main_device
 )
 # adding the object of ECGRecDevice
 nwbfile.add_device(ecg_device)
@@ -155,8 +155,8 @@ And also an instance of ```ECGChannelsGroup```:
 ecg_channels_group = ECGChannelsGroup(
     name='ecg_channels_group',
     group_description='a group to store electrodes and channels table, and linking to ECGRecDevice.',
-    electrodes=nwbfile.get_analysis('ecg_electrodes'),
-    channels=nwbfile.get_analysis('recording_channels'),
+    electrodes=ecg_electrodes_table,
+    channels=recording_channels_table,
     recording_device=ecg_device
 )
 # adding the object of ECGChannelsGroup
