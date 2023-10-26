@@ -1,6 +1,6 @@
 # ndx-ecg Extension for NWB
 
-This extension is developed to extend NWB data standards to incorporate ECG recordings. ```CardiacSeries```, the basic neurotype in this extension, in fact extends the base type of NWB TimeSeries and can be stored into three specific data interfaces of ```ECG```, ```HeartRate``` and ```AuxiliaryAnalysis```. Also, the ```ECGChannelsGroup``` is another neurotype in this module which extends an NWB container and stores recording channels information along with the electrodes implementation (passed as DynamicTables) and a link to another extended neurotype -```ECGRecDevice```- which extends the type Device.
+This extension is developed to extend NWB data standards to incorporate ECG recordings. ```CardiacSeries```, the main neurodata-type in this extension, in fact extends the base type of NWB TimeSeries and can be stored into three specific data interfaces of ```ECG```, ```HeartRate``` and ```AuxiliaryAnalysis```. Also, the ```ECGChannelsGroup``` is another neurodata-type in this module which extends an NWB container and stores recording channels information along with the electrodes implementation (passed as DynamicTables) and a link to another extended neurodata-type -```ECGRecDevice```- which extends the type Device.
 
 <div align="center">
 <img src="https://github.com/Hamidreza-Alimohammadi/ndx_ecg/assets/63550467/be2435b2-e9ac-4c54-9c11-7a25c440f27b" width="700">
@@ -12,7 +12,7 @@ Simply clone the repo and navigate to the root directory, then:
 pip install .
 ```
 ## Test
-A roundTrip test is runnable by ```pytest``` from the root. The test script can be found here:
+A roundTrip test is runnable through ```pytest``` from the root. The test script can be found here:
 ```
 \src\pynwb\tests
 ```
