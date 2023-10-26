@@ -1,7 +1,10 @@
 # ndx-ecg Extension for NWB
 
 This extension is developed to extend NWB data standards to incorporate ECG recordings. ```CardiacSeries```, the basic neurotype in this extension, in fact extends the base type of NWB TimeSeries and can be stored into three specific data interfaces of ```ECG```, ```HeartRate``` and ```AuxiliaryAnalysis```. Also, the ```ECGChannelsGroup``` is another neurotype in this module which extends an NWB container and stores recording channels information along with the electrodes implementation (passed as DynamicTables) and a link to another extended neurotype -```ECGRecDevice```- which extends the type Device.
-![ndx_ecg_architecture](https://github.com/Hamidreza-Alimohammadi/ndx_ecg/assets/63550467/be2435b2-e9ac-4c54-9c11-7a25c440f27b)
+
+<div align="center">
+<img src="https://github.com/Hamidreza-Alimohammadi/ndx_ecg/assets/63550467/be2435b2-e9ac-4c54-9c11-7a25c440f27b" width="700">
+</div>
 
 ## Installation
 Simply clone the repo and navigate to the root directory, then:
@@ -9,12 +12,12 @@ Simply clone the repo and navigate to the root directory, then:
 pip install .
 ```
 ## Test
-A roundTrip test is runnable by ```pytest``` from the root. The script can be found here:
+A roundTrip test is runnable by ```pytest``` from the root. The test script can be found here:
 ```
 \src\pynwb\tests
 ```
 ## An example use-case
-Here's an example use case of ```ndx-ecg``` with explanatory comments:
+The following is an example use case of ```ndx-ecg``` with explanatory comments. First, we build up an ```nwbfile``` and define an endpoint recording device:
 ```python
 from datetime import datetime
 from uuid import uuid4
@@ -49,7 +52,9 @@ main_device = nwbfile.create_device(
     description='description_of_the_MRD',
     manufacturer='manufacturer_of_the_MRD'
 )
-
+```
+Then, we define two instances of ```DynamicTable```, to represent the meta-data on the recording electrodes and also the recording channels:
+```python
 '''
 creating an ECG electrodes table
 as a DynamicTable
@@ -128,7 +133,9 @@ recording_channels_table.add_row(
 )
 # adding the object of DynamicTable
 nwbfile.add_analysis(recording_channels_table)  # storage point for custom DT and NWB-C
-
+```
+Now, we can define an instance of ```ECGRecDevice```:
+```python
 # define an ECGRecDevice-type device for ecg recording
 ecg_device = ECGRecDevice(
     name='name_of_the_ECGRD',
@@ -142,7 +149,9 @@ ecg_device = ECGRecDevice(
 )
 # adding the object of ECGRecDevice
 nwbfile.add_device(ecg_device)
-
+```
+And also an instance of ```ECGChannelsGroup```:
+```python
 ecg_channels_group = ECGChannelsGroup(
     name='ecg_channels_group',
     group_description='a group to store electrodes and channels table, and linking to ECGRecDevice.',
@@ -153,7 +162,9 @@ ecg_channels_group = ECGChannelsGroup(
 # adding the object of ECGChannelsGroup
 nwbfile.add_analysis(ecg_channels_group)  # storage point for custom DT and NWB-C
 #
-#
+```
+Now, we have all the required standard arguments to genearate instances of ```CardiacSeries``` and stroing them in our three different NWBDataInterfaces:
+```python
 # storing the ECG data
 dum_data_ecg = np.random.randn(20, 2)
 dum_time_ecg = np.linspace(0, 10, len(dum_data_ecg))
@@ -169,9 +180,14 @@ ecg_raw = ECG(
     cardiac_series=ecg_cardiac_series,
     processing_description='raw acquisition'
 )
+```
+Here, we built an instance of our ```CradiacSeries``` to store a dummy raw ECG acquisition into a specified ```ECG``` interface, and we store it as an acquisition into the ```nwbfile```:
+```python
 # adding the raw acquisition of ECG to the nwb_file inside an 'ECG' container
 nwbfile.add_acquisition(ecg_raw)
-
+```
+In the following, we have taken the similar approach but this time storing dummy data as processed data, into specific interfaces of ```HeartRate``` and ```AuxiliaryAnalysis```, then storing it into a -to be defined- ```ecg_module```:
+```python
 # storing the HeartRate data
 dum_data_hr = np.random.randn(10, 2)
 dum_time_hr = np.linspace(0, 10, len(dum_data_hr))
@@ -236,4 +252,5 @@ hr2ceil = HeartRate(
 ecg_module.add(hr2ceil)
 
 ```
+Now, the ```nwbfile``` is ready to be written on the disk and read back. 
 
