@@ -77,7 +77,7 @@ def set_up_nwbfile(nwbfile: NWBFile = None):
         electrode_info='descriptive info'
     )
     # adding the object of DynamicTable
-    nwbfile.add_acquisition(ecg_electrodes_table)  # storage point for custom DT and NWB-C
+    nwbfile.add_acquisition(ecg_electrodes_table)  # storage point for DT
 
     '''
     creating an ECG recording channels table
@@ -114,7 +114,7 @@ def set_up_nwbfile(nwbfile: NWBFile = None):
         electrodes='el_0 and el_1'
     )
     # adding the object of DynamicTable
-    nwbfile.add_acquisition(recording_channels_table)  # storage point for custom DT and NWB-C
+    nwbfile.add_acquisition(recording_channels_table)  # storage point for DT
 
     return nwbfile, ecg_electrodes_table, recording_channels_table
 
@@ -153,7 +153,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
             recording_device=ecg_device
         )
         # adding the object of ECGChannelsGroup
-        self.nwbfile.add_lab_meta_data(ecg_channels_group)  # storage point for custom DT and NWB-C
+        self.nwbfile.add_lab_meta_data(ecg_channels_group)  # storage point for custom LMD
         #
         #
         # storing the ECG data
