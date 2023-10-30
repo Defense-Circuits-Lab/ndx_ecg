@@ -95,7 +95,7 @@ ecg_electrodes_table.add_row(
     electrode_info='descriptive info'
 )
 # adding the object of DynamicTable
-nwbfile.add_analysis(ecg_electrodes_table)  # storage point for custom DT and NWB-C
+nwbfile.add_acquisition(ecg_electrodes_table)  # storage point for DT
 
 '''
 creating an ECG recording channels table
@@ -132,7 +132,7 @@ recording_channels_table.add_row(
     electrodes='el_0 and el_1'
 )
 # adding the object of DynamicTable
-nwbfile.add_analysis(recording_channels_table)  # storage point for custom DT and NWB-C
+nwbfile.add_acquisition(recording_channels_table)  # storage point for DT
 ```
 Now, we can define an instance of ```ECGRecDevice```:
 ```python
@@ -160,7 +160,7 @@ ecg_channels_group = ECGChannelsGroup(
     recording_device=ecg_device
 )
 # adding the object of ECGChannelsGroup
-nwbfile.add_analysis(ecg_channels_group)  # storage point for custom DT and NWB-C
+nwbfile.add_lab_meta_data(ecg_channels_group)  # storage point for custom LMD
 #
 ```
 Now, we have all the required standard arguments to genearate instances of ```CardiacSeries``` and stroing them in our three different NWBDataInterfaces:

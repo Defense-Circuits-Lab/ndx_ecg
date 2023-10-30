@@ -12,7 +12,7 @@ namespaces:
     - TimeSeries
     - Device
     - NWBDataInterface
-    - NWBContainer
+    - LabMetaData
   - namespace: hdmf-common
     neurodata_types:
     - DynamicTable

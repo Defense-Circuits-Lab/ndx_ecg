@@ -19,7 +19,7 @@ def main():
     ns_builder.include_type('DynamicTable', namespace='hdmf-common')
     ns_builder.include_type('Device', namespace='core')
     ns_builder.include_type('NWBDataInterface', namespace='core')
-    ns_builder.include_type('NWBContainer', namespace='core')
+    ns_builder.include_type('LabMetaData', namespace='core')
 
     cardiac_series = NWBGroupSpec(
         neurodata_type_def='CardiacSeries',
@@ -156,7 +156,7 @@ def main():
 
     ecg_recording_channels = NWBGroupSpec(
         neurodata_type_def='ECGChannelsGroup',
-        neurodata_type_inc='NWBContainer',
+        neurodata_type_inc='LabMetaData',
         doc='Information of all channels from which the corresponding CardiacSeries is generated. Note that these '
             'channels can represent single recording electrodes or differential recordings.',
         attributes=[

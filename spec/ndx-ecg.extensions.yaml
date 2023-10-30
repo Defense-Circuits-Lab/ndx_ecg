@@ -87,7 +87,7 @@ groups:
     doc: CardiacSeries object representing the auxiliary analysis.
     quantity: +
 - neurodata_type_def: ECGChannelsGroup
-  neurodata_type_inc: NWBContainer
+  neurodata_type_inc: LabMetaData
   doc: Information of all channels from which the corresponding CardiacSeries is generated.
     Note that these channels can represent single recording electrodes or differential
     recordings.
