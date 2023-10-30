@@ -1,5 +1,4 @@
-
-from pynwb.testing import TestCase, remove_test_file, NWBH5IOMixin
+from pynwb.testing import TestCase, remove_test_file
 
 from pynwb import NWBHDF5IO, NWBFile
 from datetime import datetime
