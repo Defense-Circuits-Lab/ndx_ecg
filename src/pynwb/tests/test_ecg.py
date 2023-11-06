@@ -30,8 +30,8 @@ def set_up_nwbfile(nwbfile: NWBFile = None):
         session_id='',
     )
     # define an endpoint main recording device
-    main_device = nwbfile.create_device(
-        name='name_of_the_MRD',  # MRD: main recording device
+    nwbfile.create_device(
+        name='endpoint_recording_device',  # MRD: main recording device
         description='description_of_the_MRD',
         manufacturer='manufacturer_of_the_MRD'
     )
@@ -41,7 +41,7 @@ def set_up_nwbfile(nwbfile: NWBFile = None):
     as a DynamicTable
     '''
     ecg_electrodes_table = DynamicTable(
-        name='ecg_electrodes',
+        name='electrodes',
         description='info on ECG electrodes'
     )
 
@@ -83,7 +83,7 @@ def set_up_nwbfile(nwbfile: NWBFile = None):
     as a DynamicTable
     '''
     recording_channels_table = DynamicTable(
-        name='recording_channels',
+        name='channels',
         description='info on ecg recording channels'
     )
 
@@ -132,23 +132,23 @@ class TestCardiacSeriesRoundtrip(TestCase):
     def test_roundtrip(self):
         # define an ECGRecDevice-type device for ecg recording
         ecg_device = ECGRecDevice(
-            name='name_of_the_ECGRD',
+            name='recording_device',
             description='description_of_the_ECGRD',
             manufacturer='manufacturer_of_the_ECGRD',
             filtering='notch-60Hz-analog',
             gain='100',
             offset='0',
             synchronization='taken care of via ...',
-            endpoint_recording_device=self.nwbfile.get_device('name_of_the_MRD')
+            endpoint_recording_device=self.nwbfile.get_device('endpoint_recording_device')
         )
         # adding the object of ECGRecDevice
         self.nwbfile.add_device(ecg_device)
 
         ecg_channels_group = ECGChannelsGroup(
-            name='ecg_channels_group',
+            name='channels_group',
             group_description='a group to store electrodes and channels table, and linking to ECGRecDevice.',
-            electrodes=self.nwbfile.get_acquisition('ecg_electrodes'),
-            channels=self.nwbfile.get_acquisition('recording_channels'),
+            electrodes=self.nwbfile.get_acquisition('electrodes'),
+            channels=self.nwbfile.get_acquisition('channels'),
             recording_device=ecg_device
         )
         # adding the object of ECGChannelsGroup
@@ -167,7 +167,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
         )
 
         ecg_raw = ECG(
-            cardiac_series=ecg_cardiac_series,
+            cardiac_series=[ecg_cardiac_series],
             processing_description='raw acquisition'
         )
         # adding the raw acquisition of ECG to the nwb_file inside an 'ECG' container
@@ -191,7 +191,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
         )
 
         hr = HeartRate(
-            cardiac_series=hr_cardiac_series,
+            cardiac_series=[hr_cardiac_series],
             processing_description='processed heartRate of the animal'
         )
         # adding the heart rate data to the nwb_file inside an 'HeartRate' container
@@ -210,7 +210,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
         )
 
         ceil = AuxiliaryAnalysis(
-            cardiac_series=ceil_cardiac_series,
+            cardiac_series=[ceil_cardiac_series],
             processing_description='processed auxiliary analysis'
         )
         # adding the 'ceiling' auxiliary analysis to the nwb_file inside an 'AuxiliaryAnalysis' container
@@ -230,7 +230,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
 
         hr2ceil = HeartRate(
             name='HR2Ceil',
-            cardiac_series=hr2ceil_cardiac_series,
+            cardiac_series=[hr2ceil_cardiac_series],
             processing_description='processed heartRate to ceiling'
         )
         # adding the 'HR2ceiling' processed HR to the nwb_file inside an 'HeartRate' container
@@ -255,7 +255,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
             np.testing.assert_array_equal(dum_time_ecg, read_nwbfile.acquisition['ECG']['ecg_raw_CS'].timestamps[:])
             self.assertEqual('mV', read_nwbfile.acquisition['ECG']['ecg_raw_CS'].unit)
             self.assertContainerEqual(ecg_channels_group, read_nwbfile.acquisition['ECG']['ecg_raw_CS'].channels_group)
-            self.assertContainerEqual(ecg_channels_group, read_nwbfile.lab_meta_data['ecg_channels_group'])
+            self.assertContainerEqual(ecg_channels_group, read_nwbfile.lab_meta_data['channels_group'])
 
             # assertion of default(first three)/given(last) names of interfaces
             self.assertEqual('ECG', read_nwbfile.acquisition['ECG'].name)
@@ -264,6 +264,6 @@ class TestCardiacSeriesRoundtrip(TestCase):
             self.assertEqual('HR2Ceil', read_nwbfile.processing['cardio_module']['HR2Ceil'].name)
 
             # assertion of ECGChannelsGroup elements (instances of DynamicTable)
-            self.assertEqual(self.electrodes_table, read_nwbfile.lab_meta_data['ecg_channels_group'].electrodes)
-            self.assertEqual(self.channels_table, read_nwbfile.lab_meta_data['ecg_channels_group'].channels)
+            self.assertEqual(self.electrodes_table, read_nwbfile.lab_meta_data['channels_group'].electrodes)
+            self.assertEqual(self.channels_table, read_nwbfile.lab_meta_data['channels_group'].channels)
 
