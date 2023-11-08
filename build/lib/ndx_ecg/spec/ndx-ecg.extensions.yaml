@@ -42,9 +42,9 @@ groups:
       doc: Zero-indexed axis of the data that the channel-specific conversion factor
         corresponds to.
   links:
-  - name: channels_group
-    target_type: ECGChannelsGroup
-    doc: Link to the ECGChannelsGroup as a reference for recording channels, recording
+  - name: recording_group
+    target_type: ECGRecordingGroup
+    doc: Link to the ECGRecordingGroup as a reference for recording channels, recording
       electrodes and the recording device.
 - neurodata_type_def: ECG
   neurodata_type_inc: NWBDataInterface
@@ -86,11 +86,10 @@ groups:
   - neurodata_type_inc: CardiacSeries
     doc: CardiacSeries object representing the auxiliary analysis.
     quantity: +
-- neurodata_type_def: ECGChannelsGroup
+- neurodata_type_def: ECGRecordingGroup
   neurodata_type_inc: LabMetaData
-  doc: Information of all channels from which the corresponding CardiacSeries is generated.
-    Note that these channels can represent single recording electrodes or differential
-    recordings.
+  doc: Information of all electrodes, channels and the recording device from which
+    the corresponding CardiacSeries is obtained.
   attributes:
   - name: group_description
     dtype: text
@@ -98,11 +97,11 @@ groups:
     required: false
   groups:
   - name: electrodes
-    neurodata_type_inc: DynamicTable
-    doc: A dynamic table of the implemented electrodes.
+    neurodata_type_inc: ECGElectrodes
+    doc: An extended dynamic table of the implemented electrodes.
   - name: channels
-    neurodata_type_inc: DynamicTable
-    doc: A dynamic table of the ECG recording channels.
+    neurodata_type_inc: ECGChannels
+    doc: An extended dynamic table of the ECG recording channels.
   links:
   - name: recording_device
     target_type: ECGRecDevice
@@ -133,3 +132,41 @@ groups:
   - name: endpoint_recording_device
     target_type: Device
     doc: endpoint recording device to which the ECG recording device is connected.
+- neurodata_type_def: ECGElectrodes
+  neurodata_type_inc: DynamicTable
+  name: electrodes
+  doc: Meta information of the electrodes from which the ECG signals are being recorded.
+  datasets:
+  - name: electrode_name
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Reference name of the corresponding electrode.
+  - name: electrode_location
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Implementation location of the corresponding electrode.
+  - name: electrode_info
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Descriptive information on the corresponding electrode
+- neurodata_type_def: ECGChannels
+  neurodata_type_inc: DynamicTable
+  name: channels
+  doc: Meta information of the channels from which the CardiacSeries is obtained.
+  datasets:
+  - name: channel_name
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Reference name of the corresponding recording channel.
+  - name: channel_type
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Type of the recording channel, e.g., single or differential.
+  - name: involved_electrodes
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Reference of the electrodes involved in the corresponding recording channel.
+  - name: channel_info
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Descriptive information on the corresponding recording channel.

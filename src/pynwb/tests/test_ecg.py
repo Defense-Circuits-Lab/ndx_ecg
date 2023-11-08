@@ -12,8 +12,10 @@ from ndx_ecg import (
     ECG,
     HeartRate,
     AuxiliaryAnalysis,
-    ECGChannelsGroup,
-    ECGRecDevice
+    ECGRecordingGroup,
+    ECGRecDevice,
+    ECGElectrodes,
+    ECGChannels
 )
 
 
@@ -31,49 +33,34 @@ def set_up_nwbfile(nwbfile: NWBFile = None):
     )
     # define an endpoint main recording device
     nwbfile.create_device(
-        name='endpoint_recording_device',  # MRD: main recording device
-        description='description_of_the_MRD',
-        manufacturer='manufacturer_of_the_MRD'
+        name='endpoint_recording_device',
+        description='description_of_the_ERD',  # ERD: Endpoint recording device
+        manufacturer='manufacturer_of_the_ERD'
     )
 
     '''
     creating an ECG electrodes table
     as a DynamicTable
     '''
-    ecg_electrodes_table = DynamicTable(
-        name='electrodes',
-        description='info on ECG electrodes'
-    )
-
-    # add relevant columns
-    ecg_electrodes_table.add_column(
-        name='electrode_name',
-        description='reference name of the corresponding electrode'
-    )
-    ecg_electrodes_table.add_column(
-        name='electrode_location',
-        description='the location of the corresponding electrode on the body'
-    )
-    ecg_electrodes_table.add_column(
-        name='electrode_info',
-        description='descriptive information on the corresponding electrode'
+    ecg_electrodes_table = ECGElectrodes(
+        description='descriptive meta-data on ECG recording electrodes'
     )
 
     # add electrodes
     ecg_electrodes_table.add_row(
         electrode_name='el_0',
         electrode_location='right upper-chest',
-        electrode_info='descriptive info'
+        electrode_info='descriptive info on el_0'
     )
     ecg_electrodes_table.add_row(
         electrode_name='el_1',
         electrode_location='left lower-chest',
-        electrode_info='descriptive info'
+        electrode_info='descriptive info on el_1'
     )
     ecg_electrodes_table.add_row(
         electrode_name='reference',
         electrode_location='top of the head',
-        electrode_info='descriptive info'
+        electrode_info='descriptive info on reference'
     )
     # adding the object of DynamicTable
     nwbfile.add_acquisition(ecg_electrodes_table)  # storage point for DT
@@ -82,40 +69,27 @@ def set_up_nwbfile(nwbfile: NWBFile = None):
     creating an ECG recording channels table
     as a DynamicTable
     '''
-    recording_channels_table = DynamicTable(
-        name='channels',
-        description='info on ecg recording channels'
-    )
-
-    # add relevant columns
-    recording_channels_table.add_column(
-        name='channel_name',
-        description='reference name of the corresponding recording channel'
-    )
-    recording_channels_table.add_column(
-        name='channel_type',
-        description='type of the recording, e.g., single electrode or differential'
-    )
-    recording_channels_table.add_column(
-        name='electrodes',
-        description='descriptive information the corresponding electrode(s)',
+    ecg_channels_table = ECGChannels(
+        description='descriptive meta-data on ECG recording channels'
     )
 
     # add channels
-    recording_channels_table.add_row(
+    ecg_channels_table.add_row(
         channel_name='ch_0',
         channel_type='single',
-        electrodes='el_0'
+        involved_electrodes='el_0',
+        channel_info='channel info on ch_0'
     )
-    recording_channels_table.add_row(
+    ecg_channels_table.add_row(
         channel_name='ch_1',
         channel_type='differential',
-        electrodes='el_0 and el_1'
+        involved_electrodes='el_0 and el_1',
+        channel_info='channel info on ch_1'
     )
     # adding the object of DynamicTable
-    nwbfile.add_acquisition(recording_channels_table)  # storage point for DT
+    nwbfile.add_acquisition(ecg_channels_table)  # storage point for DT
 
-    return nwbfile, ecg_electrodes_table, recording_channels_table
+    return nwbfile, ecg_electrodes_table, ecg_channels_table
 
 
 class TestCardiacSeriesRoundtrip(TestCase):
@@ -144,15 +118,15 @@ class TestCardiacSeriesRoundtrip(TestCase):
         # adding the object of ECGRecDevice
         self.nwbfile.add_device(ecg_device)
 
-        ecg_channels_group = ECGChannelsGroup(
-            name='channels_group',
+        ecg_recording_group = ECGRecordingGroup(
+            name='recording_group',
             group_description='a group to store electrodes and channels table, and linking to ECGRecDevice.',
             electrodes=self.nwbfile.get_acquisition('electrodes'),
             channels=self.nwbfile.get_acquisition('channels'),
             recording_device=ecg_device
         )
         # adding the object of ECGChannelsGroup
-        self.nwbfile.add_lab_meta_data(ecg_channels_group)  # storage point for custom LMD
+        self.nwbfile.add_lab_meta_data(ecg_recording_group)  # storage point for custom LMD
         #
         #
         # storing the ECG data
@@ -163,7 +137,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
             data=dum_data_ecg,
             timestamps=dum_time_ecg,
             unit='mV',
-            channels_group=ecg_channels_group
+            recording_group=ecg_recording_group
         )
 
         ecg_raw = ECG(
@@ -181,7 +155,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
             data=dum_data_hr,
             timestamps=dum_time_hr,
             unit='bpm',
-            channels_group=ecg_channels_group
+            recording_group=ecg_recording_group
         )
 
         # defining an ecg_module to store the processed cardiac data and analysis
@@ -206,7 +180,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
             data=dum_data_ceil,
             timestamps=dum_time_ceil,
             unit='bpm',
-            channels_group=ecg_channels_group
+            recording_group=ecg_recording_group
         )
 
         ceil = AuxiliaryAnalysis(
@@ -225,7 +199,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
             data=dum_data_hr2ceil,
             timestamps=dum_time_hr2ceil,
             unit='bpm',
-            channels_group=ecg_channels_group
+            recording_group=ecg_recording_group
         )
 
         hr2ceil = HeartRate(
@@ -254,8 +228,8 @@ class TestCardiacSeriesRoundtrip(TestCase):
             np.testing.assert_array_equal(dum_data_ecg, read_nwbfile.acquisition['ECG']['ecg_raw_CS'].data[:])
             np.testing.assert_array_equal(dum_time_ecg, read_nwbfile.acquisition['ECG']['ecg_raw_CS'].timestamps[:])
             self.assertEqual('mV', read_nwbfile.acquisition['ECG']['ecg_raw_CS'].unit)
-            self.assertContainerEqual(ecg_channels_group, read_nwbfile.acquisition['ECG']['ecg_raw_CS'].channels_group)
-            self.assertContainerEqual(ecg_channels_group, read_nwbfile.lab_meta_data['channels_group'])
+            self.assertContainerEqual(ecg_recording_group, read_nwbfile.acquisition['ECG']['ecg_raw_CS'].recording_group)
+            self.assertContainerEqual(ecg_recording_group, read_nwbfile.lab_meta_data['recording_group'])
 
             # assertion of default(first three)/given(last) names of interfaces
             self.assertEqual('ECG', read_nwbfile.acquisition['ECG'].name)
@@ -263,7 +237,7 @@ class TestCardiacSeriesRoundtrip(TestCase):
             self.assertEqual('AuxiliaryAnalysis', read_nwbfile.processing['cardio_module']['AuxiliaryAnalysis'].name)
             self.assertEqual('HR2Ceil', read_nwbfile.processing['cardio_module']['HR2Ceil'].name)
 
-            # assertion of ECGChannelsGroup elements (instances of DynamicTable)
-            self.assertEqual(self.electrodes_table, read_nwbfile.lab_meta_data['channels_group'].electrodes)
-            self.assertEqual(self.channels_table, read_nwbfile.lab_meta_data['channels_group'].channels)
+            # assertion of ECGRecordingGroup elements (instances of ECGElectrodes and ECGChannels)
+            self.assertEqual(self.electrodes_table, read_nwbfile.lab_meta_data['recording_group'].electrodes)
+            self.assertEqual(self.channels_table, read_nwbfile.lab_meta_data['recording_group'].channels)
 

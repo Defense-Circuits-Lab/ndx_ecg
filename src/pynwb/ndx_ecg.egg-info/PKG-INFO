@@ -15,10 +15,10 @@ License-File: LICENSE.txt
 
 # ndx-ecg Extension for NWB
 
-This extension is developed to extend NWB data standards to incorporate ECG recordings. ```CardiacSeries```, the main neurodata-type in this extension, in fact extends the base type of NWB TimeSeries and can be stored into three specific data interfaces of ```ECG```, ```HeartRate``` and ```AuxiliaryAnalysis```. Also, the ```ECGChannelsGroup``` is another neurodata-type in this module which extends an NWB container and stores recording channels information along with the electrodes implementation (passed as DynamicTables) and a link to another extended neurodata-type -```ECGRecDevice```- which extends the type Device.
+This extension is developed to extend NWB data standards to incorporate ECG recordings. ```CardiacSeries```, the main neurodata-type in this extension, in fact extends the base type of NWB TimeSeries and can be stored into three specific data interfaces of ```ECG```, ```HeartRate``` and ```AuxiliaryAnalysis```. Also, the ```ECGChannelsGroup``` is another neurodata-type in this module which extends `LabMetaData` which itself extends the `NWBContainer` and stores recording channels information along with the electrodes implementation (passed as DynamicTables) and a link to another extended neurodata-type -```ECGRecDevice```- which extends the type Device.
 
 <div align="center">
-<img src="https://github.com/Hamidreza-Alimohammadi/ndx_ecg/assets/63550467/be2435b2-e9ac-4c54-9c11-7a25c440f27b" width="700">
+<img src="https://github.com/Defense-Circuits-Lab/ndx_ecg/assets/63550467/8f989415-524c-48d5-9f1a-cd3f46921102" width="700">
 </div>
 
 ## Installation
@@ -63,7 +63,7 @@ nwbfile = NWBFile(
 )
 # define an endpoint main recording device
 main_device = nwbfile.create_device(
-    name='name_of_the_MRD',  # MRD: main recording device
+    name='endpoint_recording_device',  # MRD: main recording device
     description='description_of_the_MRD',
     manufacturer='manufacturer_of_the_MRD'
 )
@@ -75,7 +75,7 @@ creating an ECG electrodes table
 as a DynamicTable
 '''
 ecg_electrodes_table = DynamicTable(
-    name='ecg_electrodes',
+    name='electrodes',
     description='info on ECG electrodes'
 )
 
@@ -110,14 +110,14 @@ ecg_electrodes_table.add_row(
     electrode_info='descriptive info'
 )
 # adding the object of DynamicTable
-nwbfile.add_analysis(ecg_electrodes_table)  # storage point for custom DT and NWB-C
+nwbfile.add_acquisition(ecg_electrodes_table)  # storage point for DT
 
 '''
 creating an ECG recording channels table
 as a DynamicTable
 '''
 recording_channels_table = DynamicTable(
-    name='recording_channels',
+    name='channels',
     description='info on ecg recording channels'
 )
 
@@ -147,13 +147,13 @@ recording_channels_table.add_row(
     electrodes='el_0 and el_1'
 )
 # adding the object of DynamicTable
-nwbfile.add_analysis(recording_channels_table)  # storage point for custom DT and NWB-C
+nwbfile.add_acquisition(recording_channels_table)  # storage point for DT
 ```
 Now, we can define an instance of ```ECGRecDevice```:
 ```python
 # define an ECGRecDevice-type device for ecg recording
 ecg_device = ECGRecDevice(
-    name='name_of_the_ECGRD',
+    name='recording_device',
     description='description_of_the_ECGRD',
     manufacturer='manufacturer_of_the_ECGRD',
     filtering='notch-60Hz-analog',
@@ -168,14 +168,14 @@ nwbfile.add_device(ecg_device)
 And also an instance of ```ECGChannelsGroup```:
 ```python
 ecg_channels_group = ECGChannelsGroup(
-    name='ecg_channels_group',
+    name='channels_group',
     group_description='a group to store electrodes and channels table, and linking to ECGRecDevice.',
     electrodes=ecg_electrodes_table,
     channels=recording_channels_table,
     recording_device=ecg_device
 )
 # adding the object of ECGChannelsGroup
-nwbfile.add_analysis(ecg_channels_group)  # storage point for custom DT and NWB-C
+nwbfile.add_lab_meta_data(ecg_channels_group)  # storage point for custom LMD
 #
 ```
 Now, we have all the required standard arguments to genearate instances of ```CardiacSeries``` and stroing them in our three different NWBDataInterfaces:
@@ -192,7 +192,7 @@ ecg_cardiac_series = CardiacSeries(
 )
 
 ecg_raw = ECG(
-    cardiac_series=ecg_cardiac_series,
+    cardiac_series=[ecg_cardiac_series],
     processing_description='raw acquisition'
 )
 ```
@@ -221,7 +221,7 @@ ecg_module = nwbfile.create_processing_module(
 )
 
 hr = HeartRate(
-    cardiac_series=hr_cardiac_series,
+    cardiac_series=[hr_cardiac_series],
     processing_description='processed heartRate of the animal'
 )
 # adding the heart rate data to the nwb_file inside an 'HeartRate' container
@@ -240,7 +240,7 @@ ceil_cardiac_series = CardiacSeries(
 )
 
 ceil = AuxiliaryAnalysis(
-    cardiac_series=ceil_cardiac_series,
+    cardiac_series=[ceil_cardiac_series],
     processing_description='processed auxiliary analysis'
 )
 # adding the 'ceiling' auxiliary analysis to the nwb_file inside an 'AuxiliaryAnalysis' container
@@ -260,7 +260,7 @@ hr2ceil_cardiac_series = CardiacSeries(
 
 hr2ceil = HeartRate(
     name='HR2Ceil',
-    cardiac_series=hr2ceil_cardiac_series,
+    cardiac_series=[hr2ceil_cardiac_series],
     processing_description='processed heartRate to ceiling'
 )
 # adding the 'HR2ceiling' processed HR to the nwb_file inside an 'HeartRate' container

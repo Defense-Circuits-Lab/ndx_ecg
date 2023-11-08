@@ -17,9 +17,145 @@ def main():
 
     ns_builder.include_type('TimeSeries', namespace='core')
     ns_builder.include_type('DynamicTable', namespace='hdmf-common')
+    ns_builder.include_type('VectorData', namespace='hdmf-common')
     ns_builder.include_type('Device', namespace='core')
     ns_builder.include_type('NWBDataInterface', namespace='core')
     ns_builder.include_type('LabMetaData', namespace='core')
+
+    ecg_recording_device = NWBGroupSpec(
+        neurodata_type_def='ECGRecDevice',
+        neurodata_type_inc='Device',
+        doc='ECG recording device.',
+        attributes=[
+            NWBAttributeSpec(
+                name='filtering',
+                doc='Explain analogue frequency filtering of the ECG acquisition device, '
+                    'if any is implemented.',
+                dtype='text',
+                required=False
+            ),
+            NWBAttributeSpec(
+                name='gain',
+                doc='Explain the gain settings of the ECG acquisition device.',
+                dtype='text',
+                required=False
+            ),
+            NWBAttributeSpec(
+                name='offset',
+                doc='Explain what the baseline of the ECG signal is set to.',
+                dtype='text',
+                required=False
+            ),
+            NWBAttributeSpec(
+                name='synchronization',
+                doc='Explain the synchronization settings if the ECG recording device is separately connected to '
+                    'another recording system.',
+                dtype='text',
+                required=False
+            )
+        ],
+        links=[
+            NWBLinkSpec(
+                name='endpoint_recording_device',
+                target_type='Device',
+                doc='endpoint recording device to which the ECG recording device is connected.'
+            )
+        ]
+    )
+
+    ecg_electrodes = NWBGroupSpec(
+        neurodata_type_def='ECGElectrodes',
+        neurodata_type_inc='DynamicTable',
+        name='electrodes',
+        doc='Meta information of the electrodes from which the ECG signals are being recorded.',
+        datasets=[
+            NWBDatasetSpec(
+                name='electrode_name',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc='Reference name of the corresponding electrode.'
+            ),
+            NWBDatasetSpec(
+                name='electrode_location',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc='Implementation location of the corresponding electrode.'
+            ),
+            NWBDatasetSpec(
+                name='electrode_info',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc='Descriptive information on the corresponding electrode'
+            ),
+        ]
+    )
+
+    ecg_channels = NWBGroupSpec(
+        neurodata_type_def='ECGChannels',
+        neurodata_type_inc='DynamicTable',
+        name='channels',
+        doc='Meta information of the channels from which the CardiacSeries is obtained.',
+        datasets=[
+            NWBDatasetSpec(
+                name='channel_name',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc='Reference name of the corresponding recording channel.'
+            ),
+            NWBDatasetSpec(
+                name='channel_type',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc='Type of the recording channel, e.g., single or differential.'
+            ),
+            NWBDatasetSpec(
+                name='involved_electrodes',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc='Reference of the electrodes involved in the corresponding recording channel.'
+            ),
+            NWBDatasetSpec(
+                name='channel_info',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc='Descriptive information on the corresponding recording channel.'
+            )
+        ]
+    )
+
+    ecg_recording_group = NWBGroupSpec(
+        neurodata_type_def='ECGRecordingGroup',
+        neurodata_type_inc='LabMetaData',
+        doc='Information of all electrodes, channels and the recording device from which the corresponding '
+            'CardiacSeries is obtained.',
+        attributes=[
+            NWBAttributeSpec(
+                name='group_description',
+                doc='Describe the recording channels for this specific experiment session.',
+                dtype='text',
+                required=False
+            )
+        ],
+        groups=[
+            NWBGroupSpec(
+                name='electrodes',
+                neurodata_type_inc='ECGElectrodes',
+                doc='An extended dynamic table of the implemented electrodes.',
+            ),
+            NWBGroupSpec(
+                name='channels',
+                neurodata_type_inc='ECGChannels',
+                doc='An extended dynamic table of the ECG recording channels.',
+            )
+        ],
+        links=[
+            NWBLinkSpec(
+                name='recording_device',
+                target_type='ECGRecDevice',
+                doc='Link to the ECGRecDevice used to record cardiac signals.'
+            )
+        ]
+    )
 
     cardiac_series = NWBGroupSpec(
         neurodata_type_def='CardiacSeries',
@@ -80,9 +216,9 @@ def main():
         ],
         links=[
             NWBLinkSpec(
-                name='channels_group',
-                target_type='ECGChannelsGroup',
-                doc='Link to the ECGChannelsGroup as a reference for recording channels, recording electrodes '
+                name='recording_group',
+                target_type='ECGRecordingGroup',
+                doc='Link to the ECGRecordingGroup as a reference for recording channels, recording electrodes '
                     'and the recording device.'
             )
         ]
@@ -154,83 +290,8 @@ def main():
         ]
     )
 
-    ecg_recording_channels = NWBGroupSpec(
-        neurodata_type_def='ECGChannelsGroup',
-        neurodata_type_inc='LabMetaData',
-        doc='Information of all channels from which the corresponding CardiacSeries is generated. Note that these '
-            'channels can represent single recording electrodes or differential recordings.',
-        attributes=[
-            NWBAttributeSpec(
-                name='group_description',
-                doc='Describe the recording channels for this specific experiment session.',
-                dtype='text',
-                required=False
-            )
-        ],
-        groups=[
-            NWBGroupSpec(
-                name='electrodes',
-                neurodata_type_inc='DynamicTable',
-                doc='A dynamic table of the implemented electrodes.',
-            ),
-            NWBGroupSpec(
-                name='channels',
-                neurodata_type_inc='DynamicTable',
-                doc='A dynamic table of the ECG recording channels.',
-            )
-        ],
-        links=[
-            NWBLinkSpec(
-                name='recording_device',
-                target_type='ECGRecDevice',
-                doc='Link to the ECGRecDevice used to record cardiac signals.'
-            )
-        ]
-    )
-
-    ecg_recording_device = NWBGroupSpec(
-        neurodata_type_def='ECGRecDevice',
-        neurodata_type_inc='Device',
-        doc='ECG recording device.',
-        attributes=[
-            NWBAttributeSpec(
-                name='filtering',
-                doc='Explain analogue frequency filtering of the ECG acquisition device, '
-                    'if any is implemented.',
-                dtype='text',
-                required=False
-            ),
-            NWBAttributeSpec(
-                name='gain',
-                doc='Explain the gain settings of the ECG acquisition device.',
-                dtype='text',
-                required=False
-            ),
-            NWBAttributeSpec(
-                name='offset',
-                doc='Explain what the baseline of the ECG signal is set to.',
-                dtype='text',
-                required=False
-            ),
-            NWBAttributeSpec(
-                name='synchronization',
-                doc='Explain the synchronization settings if the ECG recording device is separately connected to '
-                    'another recording system.',
-                dtype='text',
-                required=False
-            )
-        ],
-        links=[
-            NWBLinkSpec(
-                name='endpoint_recording_device',
-                target_type='Device',
-                doc='endpoint recording device to which the ECG recording device is connected.'
-            )
-        ]
-    )
-
     new_data_types = [cardiac_series, ecg_series, hr_series, aux_analysis,
-                      ecg_recording_channels, ecg_recording_device]
+                      ecg_recording_group, ecg_recording_device, ecg_electrodes, ecg_channels]
 
     # export the spec to yaml files in the spec folder
     output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'spec'))
