@@ -1,6 +1,6 @@
 # ndx-ecg Extension for NWB
 
-This extension is developed to extend NWB data standards to incorporate ECG recordings. ```CardiacSeries```, the main neurodata-type in this extension, in fact extends the base type of NWB TimeSeries and can be stored into three specific data interfaces of ```ECG```, ```HeartRate``` and ```AuxiliaryAnalysis```. Also, the ```ECGChannelsGroup``` is another neurodata-type in this module which extends `LabMetaData` which itself extends the `NWBContainer` and stores recording channels information along with the electrodes implementation (passed as DynamicTables) and a link to another extended neurodata-type -```ECGRecDevice```- which extends the type Device.
+This extension is developed to extend NWB data standards to incorporate ECG recordings. `CardiacSeries`, the main neurodata-type in this extension, in fact extends the base type of NWB TimeSeries and can be stored into three specific data interfaces of `ECG`, `HeartRate` and `AuxiliaryAnalysis`. Also, the `ECGRecordingGroup` is another neurodata-type in this module which extends `LabMetaData` which itself extends the NWBContainer and stores descriptive meta-data recording channels information along with the electrodes implementation (`ECGChannels` and `ECGElectrodes` respectively as extensions of DynamicTable) and a link to another extended neurodata-type -`ECGRecDevice`- which extends the type Device.
 
 <div align="center">
 <img src="https://github.com/Defense-Circuits-Lab/ndx_ecg/assets/63550467/8f989415-524c-48d5-9f1a-cd3f46921102" width="700">
@@ -24,17 +24,19 @@ from uuid import uuid4
 import numpy as np
 from dateutil.tz import tzlocal
 from pynwb import NWBHDF5IO, NWBFile
+
 from hdmf.common import DynamicTable
 
 from ndx_ecg import (
-    CardiacSeries, 
-    ECG, 
-    HeartRate, 
-    AuxiliaryAnalysis, 
-    ECGChannelsGroup, 
-    ECGRecDevice
+    CardiacSeries,
+    ECG,
+    HeartRate,
+    AuxiliaryAnalysis,
+    ECGRecordingGroup,
+    ECGRecDevice,
+    ECGElectrodes,
+    ECGChannels
 )
-
 
 nwbfile = NWBFile(
     session_description='ECG test-rec session',
@@ -48,51 +50,36 @@ nwbfile = NWBFile(
 )
 # define an endpoint main recording device
 main_device = nwbfile.create_device(
-    name='endpoint_recording_device',  # MRD: main recording device
-    description='description_of_the_MRD',
-    manufacturer='manufacturer_of_the_MRD'
+    name='endpoint_recording_device',
+    description='description_of_the_ERD',  # ERD: Endpoint recording device
+    manufacturer='manufacturer_of_the_ERD'
 )
 ```
-Then, we define two instances of ```DynamicTable```, to represent the meta-data on the recording electrodes and also the recording channels:
+Then, we define instances of `ECGElectrodes` and `ECGChannels`, to represent the meta-data on the recording electrodes and also the recording channels:
 ```python
 '''
 creating an ECG electrodes table
 as a DynamicTable
 '''
-ecg_electrodes_table = DynamicTable(
-    name='electrodes',
-    description='info on ECG electrodes'
-)
-
-# add relevant columns
-ecg_electrodes_table.add_column(
-    name='electrode_name',
-    description='reference name of the corresponding electrode'
-)
-ecg_electrodes_table.add_column(
-    name='electrode_location',
-    description='the location of the corresponding electrode on the body'
-)
-ecg_electrodes_table.add_column(
-    name='electrode_info',
-    description='descriptive information on the corresponding electrode'
+ecg_electrodes_table = ECGElectrodes(
+    description='descriptive meta-data on ECG recording electrodes'
 )
 
 # add electrodes
 ecg_electrodes_table.add_row(
     electrode_name='el_0',
     electrode_location='right upper-chest',
-    electrode_info='descriptive info'
+    electrode_info='descriptive info on el_0'
 )
 ecg_electrodes_table.add_row(
     electrode_name='el_1',
     electrode_location='left lower-chest',
-    electrode_info='descriptive info'
+    electrode_info='descriptive info on el_1'
 )
 ecg_electrodes_table.add_row(
     electrode_name='reference',
     electrode_location='top of the head',
-    electrode_info='descriptive info'
+    electrode_info='descriptive info on reference'
 )
 # adding the object of DynamicTable
 nwbfile.add_acquisition(ecg_electrodes_table)  # storage point for DT
@@ -101,38 +88,25 @@ nwbfile.add_acquisition(ecg_electrodes_table)  # storage point for DT
 creating an ECG recording channels table
 as a DynamicTable
 '''
-recording_channels_table = DynamicTable(
-    name='channels',
-    description='info on ecg recording channels'
-)
-
-# add relevant columns
-recording_channels_table.add_column(
-    name='channel_name',
-    description='reference name of the corresponding recording channel'
-)
-recording_channels_table.add_column(
-    name='channel_type',
-    description='type of the recording, e.g., single electrode or differential'
-)
-recording_channels_table.add_column(
-    name='electrodes',
-    description='descriptive information the corresponding electrode(s)',
+ecg_channels_table = ECGChannels(
+    description='descriptive meta-data on ECG recording channels'
 )
 
 # add channels
-recording_channels_table.add_row(
+ecg_channels_table.add_row(
     channel_name='ch_0',
     channel_type='single',
-    electrodes='el_0'
+    involved_electrodes='el_0',
+    channel_info='channel info on ch_0'
 )
-recording_channels_table.add_row(
+ecg_channels_table.add_row(
     channel_name='ch_1',
     channel_type='differential',
-    electrodes='el_0 and el_1'
+    involved_electrodes='el_0 and el_1',
+    channel_info='channel info on ch_1'
 )
 # adding the object of DynamicTable
-nwbfile.add_acquisition(recording_channels_table)  # storage point for DT
+nwbfile.add_acquisition(ecg_channels_table)  # storage point for DT
 ```
 Now, we can define an instance of ```ECGRecDevice```:
 ```python
@@ -152,18 +126,18 @@ nwbfile.add_device(ecg_device)
 ```
 And also an instance of ```ECGChannelsGroup```:
 ```python
-ecg_channels_group = ECGChannelsGroup(
-    name='channels_group',
+ecg_recording_group = ECGRecordingGroup(
+    name='recording_group',
     group_description='a group to store electrodes and channels table, and linking to ECGRecDevice.',
     electrodes=ecg_electrodes_table,
-    channels=recording_channels_table,
+    channels=ecg_channels_table,
     recording_device=ecg_device
 )
 # adding the object of ECGChannelsGroup
-nwbfile.add_lab_meta_data(ecg_channels_group)  # storage point for custom LMD
+nwbfile.add_lab_meta_data(ecg_recording_group)  # storage point for custom LMD
 #
 ```
-Now, we have all the required standard arguments to genearate instances of ```CardiacSeries``` and stroing them in our three different NWBDataInterfaces:
+Now, we have all the required standard arguments to genearate instances of `CardiacSeries` and stroing them in our three different NWBDataInterfaces:
 ```python
 # storing the ECG data
 dum_data_ecg = np.random.randn(20, 2)
@@ -173,7 +147,7 @@ ecg_cardiac_series = CardiacSeries(
     data=dum_data_ecg,
     timestamps=dum_time_ecg,
     unit='mV',
-    channels_group=ecg_channels_group
+    recording_group=ecg_recording_group
 )
 
 ecg_raw = ECG(
@@ -181,12 +155,12 @@ ecg_raw = ECG(
     processing_description='raw acquisition'
 )
 ```
-Here, we built an instance of our ```CradiacSeries``` to store a dummy raw ECG acquisition into a specified ```ECG``` interface, and we store it as an acquisition into the ```nwbfile```:
+Here, we built an instance of our `CradiacSeries` to store a dummy raw ECG acquisition into a specified `ECG` interface, and we store it as an acquisition into the `nwbfile`:
 ```python
 # adding the raw acquisition of ECG to the nwb_file inside an 'ECG' container
 nwbfile.add_acquisition(ecg_raw)
 ```
-In the following, we have taken the similar approach but this time storing dummy data as processed data, into specific interfaces of ```HeartRate``` and ```AuxiliaryAnalysis```, then storing it into a -to be defined- ```ecg_module```:
+In the following, we have taken the similar approach but this time storing dummy data as processed data, into specific interfaces of `HeartRate` and `AuxiliaryAnalysis`, then storing it into a -to be defined- `ecg_module`:
 ```python
 # storing the HeartRate data
 dum_data_hr = np.random.randn(10, 2)
@@ -196,7 +170,7 @@ hr_cardiac_series = CardiacSeries(
     data=dum_data_hr,
     timestamps=dum_time_hr,
     unit='bpm',
-    channels_group=ecg_channels_group
+    recording_group=ecg_recording_group
 )
 
 # defining an ecg_module to store the processed cardiac data and analysis
@@ -221,7 +195,7 @@ ceil_cardiac_series = CardiacSeries(
     data=dum_data_ceil,
     timestamps=dum_time_ceil,
     unit='bpm',
-    channels_group=ecg_channels_group
+    recording_group=ecg_recording_group
 )
 
 ceil = AuxiliaryAnalysis(
@@ -240,7 +214,7 @@ hr2ceil_cardiac_series = CardiacSeries(
     data=dum_data_hr2ceil,
     timestamps=dum_time_hr2ceil,
     unit='bpm',
-    channels_group=ecg_channels_group
+    recording_group=ecg_recording_group
 )
 
 hr2ceil = HeartRate(
@@ -252,5 +226,5 @@ hr2ceil = HeartRate(
 ecg_module.add(hr2ceil)
 
 ```
-Now, the ```nwbfile``` is ready to be written on the disk and read back. 
+Now, the `nwbfile` is ready to be written on the disk and read back. 
 
