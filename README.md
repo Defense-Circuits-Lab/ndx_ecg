@@ -3,7 +3,7 @@
 This extension is developed to extend NWB data standards to incorporate ECG recordings. `CardiacSeries`, the main neurodata-type in this extension, in fact extends the base type of NWB TimeSeries and can be stored into three specific data interfaces of `ECG`, `HeartRate` and `AuxiliaryAnalysis`. Also, the `ECGRecordingGroup` is another neurodata-type in this module which extends `LabMetaData` which itself extends the NWBContainer and stores descriptive meta-data recording channels information along with the electrodes implementation (`ECGChannels` and `ECGElectrodes` respectively as extensions of DynamicTable) and a link to another extended neurodata-type -`ECGRecDevice`- which extends the type Device.
 
 <div align="center">
-<img src="https://github.com/Defense-Circuits-Lab/ndx_ecg/assets/63550467/8d6bfbe9-6274-45ac-9887-af5dd15a6988" width="1000">
+<img src="https://github.com/Defense-Circuits-Lab/ndx_ecg/assets/63550467/4efaddd3-ced3-47d3-9b53-c82647e8c450" width="1000">
 </div>
 
 ## Installation
