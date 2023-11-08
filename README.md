@@ -48,7 +48,7 @@ nwbfile = NWBFile(
 )
 # define an endpoint main recording device
 main_device = nwbfile.create_device(
-    name='name_of_the_MRD',  # MRD: main recording device
+    name='endpoint_recording_device',  # MRD: main recording device
     description='description_of_the_MRD',
     manufacturer='manufacturer_of_the_MRD'
 )
@@ -60,7 +60,7 @@ creating an ECG electrodes table
 as a DynamicTable
 '''
 ecg_electrodes_table = DynamicTable(
-    name='ecg_electrodes',
+    name='electrodes',
     description='info on ECG electrodes'
 )
 
@@ -102,7 +102,7 @@ creating an ECG recording channels table
 as a DynamicTable
 '''
 recording_channels_table = DynamicTable(
-    name='recording_channels',
+    name='channels',
     description='info on ecg recording channels'
 )
 
@@ -138,7 +138,7 @@ Now, we can define an instance of ```ECGRecDevice```:
 ```python
 # define an ECGRecDevice-type device for ecg recording
 ecg_device = ECGRecDevice(
-    name='name_of_the_ECGRD',
+    name='recording_device',
     description='description_of_the_ECGRD',
     manufacturer='manufacturer_of_the_ECGRD',
     filtering='notch-60Hz-analog',
@@ -153,7 +153,7 @@ nwbfile.add_device(ecg_device)
 And also an instance of ```ECGChannelsGroup```:
 ```python
 ecg_channels_group = ECGChannelsGroup(
-    name='ecg_channels_group',
+    name='channels_group',
     group_description='a group to store electrodes and channels table, and linking to ECGRecDevice.',
     electrodes=ecg_electrodes_table,
     channels=recording_channels_table,
@@ -177,7 +177,7 @@ ecg_cardiac_series = CardiacSeries(
 )
 
 ecg_raw = ECG(
-    cardiac_series=ecg_cardiac_series,
+    cardiac_series=[ecg_cardiac_series],
     processing_description='raw acquisition'
 )
 ```
@@ -206,7 +206,7 @@ ecg_module = nwbfile.create_processing_module(
 )
 
 hr = HeartRate(
-    cardiac_series=hr_cardiac_series,
+    cardiac_series=[hr_cardiac_series],
     processing_description='processed heartRate of the animal'
 )
 # adding the heart rate data to the nwb_file inside an 'HeartRate' container
@@ -225,7 +225,7 @@ ceil_cardiac_series = CardiacSeries(
 )
 
 ceil = AuxiliaryAnalysis(
-    cardiac_series=ceil_cardiac_series,
+    cardiac_series=[ceil_cardiac_series],
     processing_description='processed auxiliary analysis'
 )
 # adding the 'ceiling' auxiliary analysis to the nwb_file inside an 'AuxiliaryAnalysis' container
@@ -245,7 +245,7 @@ hr2ceil_cardiac_series = CardiacSeries(
 
 hr2ceil = HeartRate(
     name='HR2Ceil',
-    cardiac_series=hr2ceil_cardiac_series,
+    cardiac_series=[hr2ceil_cardiac_series],
     processing_description='processed heartRate to ceiling'
 )
 # adding the 'HR2ceiling' processed HR to the nwb_file inside an 'HeartRate' container
