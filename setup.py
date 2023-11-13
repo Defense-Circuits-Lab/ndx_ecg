@@ -29,7 +29,7 @@ setup_args = {
     'author': 'Hamidreza Alimohammadi ([AT]DefenseCircuitsLab)',
     'author_email': 'alimohammadi.hamidreza@gmail.com',
     'url': '',
-    'license': 'MIT',
+    'license': 'BSD',
     'install_requires': [
         'pynwb>=1.5.0,<3',
         'hdmf>=2.5.6,<4',
@@ -43,13 +43,14 @@ setup_args = {
     'classifiers': [
         "Intended Audience :: Developers",
         "Intended Audience :: Science/Research",
-        "License :: OSI Approved :: MIT License"
+        "License :: OSI Approved :: BSD License"
     ],
     'keywords': [
         'NeurodataWithoutBorders',
         'NWB',
         'nwb-extension',
-        'ndx-extension'
+        'ndx-extension',
+        'ndx-ecg'
     ],
     'zip_safe': False
 }
