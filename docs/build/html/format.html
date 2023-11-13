@@ -62,8 +62,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#ecg">1.2.1.2. ECG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#heartrate">1.2.1.3. HeartRate</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#auxiliaryanalysis">1.2.1.4. AuxiliaryAnalysis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ecgchannelsgroup">1.2.1.5. ECGChannelsGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecgrecordinggroup">1.2.1.5. ECGRecordingGroup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ecgrecdevice">1.2.1.6. ECGRecDevice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecgelectrodes">1.2.1.7. ECGElectrodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecgchannels">1.2.1.8. ECGChannels</a></li>
 </ul>
 </li>
 </ul>
@@ -75,8 +77,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#sec-ecg-src">1.3.2.2. ECG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sec-heartrate-src">1.3.2.3. HeartRate</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sec-auxiliaryanalysis-src">1.3.2.4. AuxiliaryAnalysis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#sec-ecgchannelsgroup-src">1.3.2.5. ECGChannelsGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-ecgrecordinggroup-src">1.3.2.5. ECGRecordingGroup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sec-ecgrecdevice-src">1.3.2.6. ECGRecDevice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-ecgelectrodes-src">1.3.2.7. ECGElectrodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-ecgchannels-src">1.3.2.8. ECGChannels</a></li>
 </ul>
 </li>
 </ul>
@@ -117,7 +121,7 @@
              
   <section id="ndx-ecg">
 <span id="id1"></span><h1><span class="section-number">1. </span>ndx-ecg<a class="headerlink" href="#ndx-ecg" title="Link to this heading">¶</a></h1>
-<p>Version alpha Oct 25, 2023</p>
+<p>Version alpha Nov 13, 2023</p>
 <section id="format-overview">
 <h2><span class="section-number">1.1. </span>Format Overview<a class="headerlink" href="#format-overview" title="Link to this heading">¶</a></h2>
 <section id="hdmf-type-namespace-doc">
@@ -143,9 +147,9 @@
 <li><dl class="simple">
 <dt><strong>Schema:</strong></dt><dd><ul>
 <li><p><strong>namespace:</strong> core</p></li>
-<li><p><strong>neurodata_types:</strong> [‘TimeSeries’, ‘Device’, ‘NWBDataInterface’, ‘NWBContainer’]</p></li>
+<li><p><strong>neurodata_types:</strong> [‘TimeSeries’, ‘Device’, ‘NWBDataInterface’, ‘LabMetaData’]</p></li>
 <li><p><strong>namespace:</strong> hdmf-common</p></li>
-<li><p><strong>neurodata_types:</strong> [‘DynamicTable’]</p></li>
+<li><p><strong>neurodata_types:</strong> [‘DynamicTable’, ‘VectorData’]</p></li>
 <li><p><strong>source:</strong> ndx-ecg.extensions.yaml</p></li>
 </ul>
 </dd>
@@ -159,7 +163,14 @@
 <li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p>
 <blockquote>
 <div><ul>
-<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#sec-ecgchannels"><span class="std std-ref">ECGChannels</span></a></p></li>
+<li><p><a class="reference internal" href="#sec-ecgelectrodes"><span class="std std-ref">ECGElectrodes</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
 <li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p>
 <blockquote>
 <div><ul>
@@ -170,7 +181,13 @@
 </ul>
 </div></blockquote>
 </li>
-<li><p><a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-labmetadata" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">LabMetaData</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#sec-ecgrecordinggroup"><span class="std std-ref">ECGRecordingGroup</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
 <li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p>
 <blockquote>
 <div><ul>
@@ -222,8 +239,8 @@
 <figure class="align-default">
 <img alt="CardiacSeries" src="_images/CardiacSeries.png" />
 </figure>
-<span id="table-cardiacseries-data"></span><table class="longtable docutils align-default" id="id14">
-<caption><span class="caption-number">Table 1.1 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;CardiacSeries&gt;</span><a class="headerlink" href="#id14" title="Link to this table">¶</a></caption>
+<span id="table-cardiacseries-data"></span><table class="longtable docutils align-default" id="id16">
+<caption><span class="caption-number">Table 1.1 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;CardiacSeries&gt;</span><a class="headerlink" href="#id16" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -298,19 +315,19 @@
 </ul>
 </td>
 </tr>
-<tr class="row-odd"><td><p>.channels_group</p></td>
+<tr class="row-odd"><td><p>.recording_group</p></td>
 <td><p>Link</p></td>
-<td><p>Link to the ECGChannelsGroup as a reference for recording channels, recording electrodes and the recording device.</p>
+<td><p>Link to the ECGRecordingGroup as a reference for recording channels, recording electrodes and the recording device.</p>
 <ul class="simple">
-<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
-<li><p><strong>Name:</strong> channels_group</p></li>
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-ecgrecordinggroup"><span class="std std-ref">ECGRecordingGroup</span></a></p></li>
+<li><p><strong>Name:</strong> recording_group</p></li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<span id="table-cardiacseries-groups"></span><table class="longtable docutils align-default" id="id15">
-<caption><span class="caption-number">Table 1.2 </span><span class="caption-text">Groups contained in &lt;CardiacSeries&gt;</span><a class="headerlink" href="#id15" title="Link to this table">¶</a></caption>
+<span id="table-cardiacseries-groups"></span><table class="longtable docutils align-default" id="id17">
+<caption><span class="caption-number">Table 1.2 </span><span class="caption-text">Groups contained in &lt;CardiacSeries&gt;</span><a class="headerlink" href="#id17" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -327,12 +344,12 @@
 </ul>
 </td>
 </tr>
-<tr class="row-odd"><td><p>.channels_group</p></td>
+<tr class="row-odd"><td><p>.recording_group</p></td>
 <td><p>Link</p></td>
-<td><p>Link to the ECGChannelsGroup as a reference for recording channels, recording electrodes and the recording device.</p>
+<td><p>Link to the ECGRecordingGroup as a reference for recording channels, recording electrodes and the recording device.</p>
 <ul class="simple">
-<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
-<li><p><strong>Name:</strong> channels_group</p></li>
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-ecgrecordinggroup"><span class="std std-ref">ECGRecordingGroup</span></a></p></li>
+<li><p><strong>Name:</strong> recording_group</p></li>
 </ul>
 </td>
 </tr>
@@ -354,8 +371,8 @@
 <figure class="align-default">
 <img alt="ECG" src="_images/ECG.png" />
 </figure>
-<span id="table-ecg-data"></span><table class="longtable docutils align-default" id="id16">
-<caption><span class="caption-number">Table 1.3 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECG&gt;</span><a class="headerlink" href="#id16" title="Link to this table">¶</a></caption>
+<span id="table-ecg-data"></span><table class="longtable docutils align-default" id="id18">
+<caption><span class="caption-number">Table 1.3 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECG&gt;</span><a class="headerlink" href="#id18" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -385,8 +402,8 @@
 </tr>
 </tbody>
 </table>
-<span id="table-ecg-groups"></span><table class="longtable docutils align-default" id="id17">
-<caption><span class="caption-number">Table 1.4 </span><span class="caption-text">Groups contained in &lt;ECG&gt;</span><a class="headerlink" href="#id17" title="Link to this table">¶</a></caption>
+<span id="table-ecg-groups"></span><table class="longtable docutils align-default" id="id19">
+<caption><span class="caption-number">Table 1.4 </span><span class="caption-text">Groups contained in &lt;ECG&gt;</span><a class="headerlink" href="#id19" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -439,8 +456,8 @@
 <figure class="align-default">
 <img alt="HeartRate" src="_images/HeartRate.png" />
 </figure>
-<span id="table-heartrate-data"></span><table class="longtable docutils align-default" id="id18">
-<caption><span class="caption-number">Table 1.5 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;HeartRate&gt;</span><a class="headerlink" href="#id18" title="Link to this table">¶</a></caption>
+<span id="table-heartrate-data"></span><table class="longtable docutils align-default" id="id20">
+<caption><span class="caption-number">Table 1.5 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;HeartRate&gt;</span><a class="headerlink" href="#id20" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -470,8 +487,8 @@
 </tr>
 </tbody>
 </table>
-<span id="table-heartrate-groups"></span><table class="longtable docutils align-default" id="id19">
-<caption><span class="caption-number">Table 1.6 </span><span class="caption-text">Groups contained in &lt;HeartRate&gt;</span><a class="headerlink" href="#id19" title="Link to this table">¶</a></caption>
+<span id="table-heartrate-groups"></span><table class="longtable docutils align-default" id="id21">
+<caption><span class="caption-number">Table 1.6 </span><span class="caption-text">Groups contained in &lt;HeartRate&gt;</span><a class="headerlink" href="#id21" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -524,8 +541,8 @@
 <figure class="align-default">
 <img alt="AuxiliaryAnalysis" src="_images/AuxiliaryAnalysis.png" />
 </figure>
-<span id="table-auxiliaryanalysis-data"></span><table class="longtable docutils align-default" id="id20">
-<caption><span class="caption-number">Table 1.7 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;AuxiliaryAnalysis&gt;</span><a class="headerlink" href="#id20" title="Link to this table">¶</a></caption>
+<span id="table-auxiliaryanalysis-data"></span><table class="longtable docutils align-default" id="id22">
+<caption><span class="caption-number">Table 1.7 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;AuxiliaryAnalysis&gt;</span><a class="headerlink" href="#id22" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -555,8 +572,8 @@
 </tr>
 </tbody>
 </table>
-<span id="table-auxiliaryanalysis-groups"></span><table class="longtable docutils align-default" id="id21">
-<caption><span class="caption-number">Table 1.8 </span><span class="caption-text">Groups contained in &lt;AuxiliaryAnalysis&gt;</span><a class="headerlink" href="#id21" title="Link to this table">¶</a></caption>
+<span id="table-auxiliaryanalysis-groups"></span><table class="longtable docutils align-default" id="id23">
+<caption><span class="caption-number">Table 1.8 </span><span class="caption-text">Groups contained in &lt;AuxiliaryAnalysis&gt;</span><a class="headerlink" href="#id23" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -594,22 +611,22 @@
 </ul>
 </section>
 </section>
-<section id="ecgchannelsgroup">
-<span id="sec-ecgchannelsgroup"></span><h4><span class="section-number">1.2.1.5. </span>ECGChannelsGroup<a class="headerlink" href="#ecgchannelsgroup" title="Link to this heading">¶</a></h4>
-<p><strong>Overview:</strong> Information of all channels from which the corresponding CardiacSeries is generated. Note that these channels can represent single recording electrodes or differential recordings.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ECGChannelsGroup</span></code> extends <code class="docutils literal notranslate"><span class="pre">NWBContainer</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a> with the following additions or changes.</p>
+<section id="ecgrecordinggroup">
+<span id="sec-ecgrecordinggroup"></span><h4><span class="section-number">1.2.1.5. </span>ECGRecordingGroup<a class="headerlink" href="#ecgrecordinggroup" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> Information of all electrodes, channels and the recording device from which the corresponding CardiacSeries is obtained.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ECGRecordingGroup</span></code> extends <code class="docutils literal notranslate"><span class="pre">LabMetaData</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-labmetadata" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">LabMetaData</span></a> with the following additions or changes.</p>
 <ul class="simple">
-<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-labmetadata" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">LabMetaData</span></a></p></li>
 <li><p><strong>Primitive Type:</strong> Group</p></li>
-<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-labmetadata" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">LabMetaData</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
 <li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
-<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-ecgchannelsgroup-src"><span class="std std-numref">Section 1.3.2.5</span></a></p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-ecgrecordinggroup-src"><span class="std std-numref">Section 1.3.2.5</span></a></p></li>
 </ul>
 <figure class="align-default">
-<img alt="ECGChannelsGroup" src="_images/ECGChannelsGroup.png" />
+<img alt="ECGRecordingGroup" src="_images/ECGRecordingGroup.png" />
 </figure>
-<span id="table-ecgchannelsgroup-data"></span><table class="longtable docutils align-default" id="id22">
-<caption><span class="caption-number">Table 1.9 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECGChannelsGroup&gt;</span><a class="headerlink" href="#id22" title="Link to this table">¶</a></caption>
+<span id="table-ecgrecordinggroup-data"></span><table class="longtable docutils align-default" id="id24">
+<caption><span class="caption-number">Table 1.9 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECGRecordingGroup&gt;</span><a class="headerlink" href="#id24" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -617,12 +634,12 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>&lt;ECGChannelsGroup&gt;</p></td>
+<tr class="row-even"><td><p>&lt;ECGRecordingGroup&gt;</p></td>
 <td><p>Group</p></td>
-<td><p>Top level Group for &lt;ECGChannelsGroup&gt;</p>
+<td><p>Top level Group for &lt;ECGRecordingGroup&gt;</p>
 <ul class="simple">
-<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
-<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p></li>
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgrecordinggroup"><span class="std std-ref">ECGRecordingGroup</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-labmetadata" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">LabMetaData</span></a></p></li>
 </ul>
 </td>
 </tr>
@@ -647,8 +664,8 @@
 </tr>
 </tbody>
 </table>
-<span id="table-ecgchannelsgroup-groups"></span><table class="longtable docutils align-default" id="id23">
-<caption><span class="caption-number">Table 1.10 </span><span class="caption-text">Groups contained in &lt;ECGChannelsGroup&gt;</span><a class="headerlink" href="#id23" title="Link to this table">¶</a></caption>
+<span id="table-ecgrecordinggroup-groups"></span><table class="longtable docutils align-default" id="id25">
+<caption><span class="caption-number">Table 1.10 </span><span class="caption-text">Groups contained in &lt;ECGRecordingGroup&gt;</span><a class="headerlink" href="#id25" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -656,12 +673,12 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>&lt;ECGChannelsGroup&gt;</p></td>
+<tr class="row-even"><td><p>&lt;ECGRecordingGroup&gt;</p></td>
 <td><p>Group</p></td>
-<td><p>Top level Group for &lt;ECGChannelsGroup&gt;</p>
+<td><p>Top level Group for &lt;ECGRecordingGroup&gt;</p>
 <ul class="simple">
-<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-ref">ECGChannelsGroup</span></a></p></li>
-<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p></li>
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgrecordinggroup"><span class="std std-ref">ECGRecordingGroup</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-labmetadata" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">LabMetaData</span></a></p></li>
 </ul>
 </td>
 </tr>
@@ -676,18 +693,18 @@
 </tr>
 <tr class="row-even"><td><p>.electrodes</p></td>
 <td><p>Group</p></td>
-<td><p>A dynamic table of the implemented electrodes.</p>
+<td><p>An extended dynamic table of the implemented electrodes.</p>
 <ul class="simple">
-<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-ecgelectrodes"><span class="std std-ref">ECGElectrodes</span></a></p></li>
 <li><p><strong>Name:</strong> electrodes</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-odd"><td><p>.channels</p></td>
 <td><p>Group</p></td>
-<td><p>A dynamic table of the ECG recording channels.</p>
+<td><p>An extended dynamic table of the ECG recording channels.</p>
 <ul class="simple">
-<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-ecgchannels"><span class="std std-ref">ECGChannels</span></a></p></li>
 <li><p><strong>Name:</strong> channels</p></li>
 </ul>
 </td>
@@ -696,17 +713,17 @@
 </table>
 <section id="groups-electrodes">
 <h5><span class="section-number">1.2.1.5.1. </span>Groups: electrodes<a class="headerlink" href="#groups-electrodes" title="Link to this heading">¶</a></h5>
-<p>A dynamic table of the implemented electrodes.</p>
+<p>An extended dynamic table of the implemented electrodes.</p>
 <ul class="simple">
-<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-ecgelectrodes"><span class="std std-ref">ECGElectrodes</span></a></p></li>
 <li><p><strong>Name:</strong> electrodes</p></li>
 </ul>
 </section>
 <section id="groups-channels">
 <h5><span class="section-number">1.2.1.5.2. </span>Groups: channels<a class="headerlink" href="#groups-channels" title="Link to this heading">¶</a></h5>
-<p>A dynamic table of the ECG recording channels.</p>
+<p>An extended dynamic table of the ECG recording channels.</p>
 <ul class="simple">
-<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference internal" href="#sec-ecgchannels"><span class="std std-ref">ECGChannels</span></a></p></li>
 <li><p><strong>Name:</strong> channels</p></li>
 </ul>
 </section>
@@ -725,8 +742,8 @@
 <figure class="align-default">
 <img alt="ECGRecDevice" src="_images/ECGRecDevice.png" />
 </figure>
-<span id="table-ecgrecdevice-data"></span><table class="longtable docutils align-default" id="id24">
-<caption><span class="caption-number">Table 1.11 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECGRecDevice&gt;</span><a class="headerlink" href="#id24" title="Link to this table">¶</a></caption>
+<span id="table-ecgrecdevice-data"></span><table class="longtable docutils align-default" id="id26">
+<caption><span class="caption-number">Table 1.11 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECGRecDevice&gt;</span><a class="headerlink" href="#id26" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -794,8 +811,8 @@
 </tr>
 </tbody>
 </table>
-<span id="table-ecgrecdevice-groups"></span><table class="longtable docutils align-default" id="id25">
-<caption><span class="caption-number">Table 1.12 </span><span class="caption-text">Groups contained in &lt;ECGRecDevice&gt;</span><a class="headerlink" href="#id25" title="Link to this table">¶</a></caption>
+<span id="table-ecgrecdevice-groups"></span><table class="longtable docutils align-default" id="id27">
+<caption><span class="caption-number">Table 1.12 </span><span class="caption-text">Groups contained in &lt;ECGRecDevice&gt;</span><a class="headerlink" href="#id27" title="Link to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Id</p></th>
 <th class="head"><p>Type</p></th>
@@ -824,6 +841,150 @@
 </tbody>
 </table>
 </section>
+<section id="ecgelectrodes">
+<span id="sec-ecgelectrodes"></span><h4><span class="section-number">1.2.1.7. </span>ECGElectrodes<a class="headerlink" href="#ecgelectrodes" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> Meta information of the electrodes from which the ECG signals are being recorded.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ECGElectrodes</span></code> extends <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code> and includes all elements of <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Name:</strong> electrodes</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-ecgelectrodes-src"><span class="std std-numref">Section 1.3.2.7</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="ECGElectrodes" src="_images/ECGElectrodes.png" />
+</figure>
+<span id="table-ecgelectrodes-data"></span><table class="longtable docutils align-default" id="id28">
+<caption><span class="caption-number">Table 1.13 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECGElectrodes&gt;</span><a class="headerlink" href="#id28" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>electrodes</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for electrodes</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgelectrodes"><span class="std std-ref">ECGElectrodes</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Name:</strong> electrodes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.electrode_name</p></td>
+<td><p>Dataset</p></td>
+<td><p>Reference name of the corresponding electrode.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">VectorData</span></a></p></li>
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> electrode_name</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.electrode_location</p></td>
+<td><p>Dataset</p></td>
+<td><p>Implementation location of the corresponding electrode.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">VectorData</span></a></p></li>
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> electrode_location</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.electrode_info</p></td>
+<td><p>Dataset</p></td>
+<td><p>Descriptive information on the corresponding electrode</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">VectorData</span></a></p></li>
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> electrode_info</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ecgchannels">
+<span id="sec-ecgchannels"></span><h4><span class="section-number">1.2.1.8. </span>ECGChannels<a class="headerlink" href="#ecgchannels" title="Link to this heading">¶</a></h4>
+<p><strong>Overview:</strong> Meta information of the channels from which the CardiacSeries is obtained.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ECGChannels</span></code> extends <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code> and includes all elements of <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Name:</strong> channels</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-ecg.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-ecgchannels-src"><span class="std std-numref">Section 1.3.2.8</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="ECGChannels" src="_images/ECGChannels.png" />
+</figure>
+<span id="table-ecgchannels-data"></span><table class="longtable docutils align-default" id="id29">
+<caption><span class="caption-number">Table 1.14 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;ECGChannels&gt;</span><a class="headerlink" href="#id29" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>channels</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for channels</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-ecgchannels"><span class="std std-ref">ECGChannels</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p></li>
+<li><p><strong>Name:</strong> channels</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.channel_name</p></td>
+<td><p>Dataset</p></td>
+<td><p>Reference name of the corresponding recording channel.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">VectorData</span></a></p></li>
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> channel_name</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.channel_type</p></td>
+<td><p>Dataset</p></td>
+<td><p>Type of the recording channel, e.g., single or differential.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">VectorData</span></a></p></li>
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> channel_type</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.involved_electrodes</p></td>
+<td><p>Dataset</p></td>
+<td><p>Reference of the electrodes involved in the corresponding recording channel.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">VectorData</span></a></p></li>
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> involved_electrodes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.channel_info</p></td>
+<td><p>Dataset</p></td>
+<td><p>Descriptive information on the corresponding recording channel.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">VectorData</span></a></p></li>
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> channel_info</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 </section>
 <section id="schema-sources">
@@ -845,12 +1006,13 @@
 <span class="linenos">10</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TimeSeries</span>
 <span class="linenos">11</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Device</span>
 <span class="linenos">12</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBDataInterface</span>
-<span class="linenos">13</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBContainer</span>
+<span class="linenos">13</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LabMetaData</span>
 <span class="linenos">14</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hdmf-common</span>
 <span class="linenos">15</span><span class="w">  </span><span class="nt">neurodata_types</span><span class="p">:</span>
 <span class="linenos">16</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DynamicTable</span>
-<span class="linenos">17</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ndx-ecg.extensions.yaml</span>
-<span class="linenos">18</span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
+<span class="linenos">17</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VectorData</span>
+<span class="linenos">18</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ndx-ecg.extensions.yaml</span>
+<span class="linenos">19</span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
 </pre></div>
 </div>
 </section>
@@ -902,10 +1064,10 @@
 <span class="linenos">39</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A group to store standardized cardiac time-series, e.g., ECG and HeartRate, including</span>
 <span class="linenos">40</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">acquisitions, processed cardiac series or auxiliary analysis.</span>
 <span class="linenos">41</span><span class="nt">links</span><span class="p">:</span>
-<span class="linenos">42</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Link to the ECGChannelsGroup as a reference for recording channels, recording</span>
+<span class="linenos">42</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Link to the ECGRecordingGroup as a reference for recording channels, recording</span>
 <span class="linenos">43</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">electrodes and the recording device.</span>
-<span class="linenos">44</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channels_group</span>
-<span class="linenos">45</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGChannelsGroup</span>
+<span class="linenos">44</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recording_group</span>
+<span class="linenos">45</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGRecordingGroup</span>
 <span class="linenos">46</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CardiacSeries</span>
 <span class="linenos">47</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TimeSeries</span>
 </pre></div>
@@ -975,32 +1137,31 @@
 </pre></div>
 </div>
 </section>
-<section id="sec-ecgchannelsgroup-src">
-<span id="id12"></span><h4><span class="section-number">1.3.2.5. </span>ECGChannelsGroup<a class="headerlink" href="#sec-ecgchannelsgroup-src" title="Link to this heading">¶</a></h4>
-<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">NWBContainer</span></a></p>
-<p><strong>Description:</strong> see <a class="reference internal" href="#sec-ecgchannelsgroup"><span class="std std-numref">Section 1.2.1.5</span></a></p>
+<section id="sec-ecgrecordinggroup-src">
+<span id="id12"></span><h4><span class="section-number">1.3.2.5. </span>ECGRecordingGroup<a class="headerlink" href="#sec-ecgrecordinggroup-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-labmetadata" title="(in NWB Format Specification v2.6.0)"><span class="xref std std-ref">LabMetaData</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-ecgrecordinggroup"><span class="std std-numref">Section 1.2.1.5</span></a></p>
 <p><strong>YAML Specification:</strong></p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
 <span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Describe the recording channels for this specific experiment session.</span>
 <span class="linenos"> 3</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="linenos"> 4</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group_description</span>
 <span class="linenos"> 5</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="linenos"> 6</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Information of all channels from which the corresponding CardiacSeries is generated.</span>
-<span class="linenos"> 7</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Note that these channels can represent single recording electrodes or differential</span>
-<span class="linenos"> 8</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">recordings.</span>
-<span class="linenos"> 9</span><span class="nt">groups</span><span class="p">:</span>
-<span class="linenos">10</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A dynamic table of the implemented electrodes.</span>
-<span class="linenos">11</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">electrodes</span>
-<span class="linenos">12</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DynamicTable</span>
-<span class="linenos">13</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A dynamic table of the ECG recording channels.</span>
-<span class="linenos">14</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channels</span>
-<span class="linenos">15</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DynamicTable</span>
-<span class="linenos">16</span><span class="nt">links</span><span class="p">:</span>
-<span class="linenos">17</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Link to the ECGRecDevice used to record cardiac signals.</span>
-<span class="linenos">18</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recording_device</span>
-<span class="linenos">19</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGRecDevice</span>
-<span class="linenos">20</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGChannelsGroup</span>
-<span class="linenos">21</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBContainer</span>
+<span class="linenos"> 6</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Information of all electrodes, channels and the recording device from which the</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">corresponding CardiacSeries is obtained.</span>
+<span class="linenos"> 8</span><span class="nt">groups</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">An extended dynamic table of the implemented electrodes.</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">electrodes</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGElectrodes</span>
+<span class="linenos">12</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">An extended dynamic table of the ECG recording channels.</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channels</span>
+<span class="linenos">14</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGChannels</span>
+<span class="linenos">15</span><span class="nt">links</span><span class="p">:</span>
+<span class="linenos">16</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Link to the ECGRecDevice used to record cardiac signals.</span>
+<span class="linenos">17</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recording_device</span>
+<span class="linenos">18</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGRecDevice</span>
+<span class="linenos">19</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGRecordingGroup</span>
+<span class="linenos">20</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LabMetaData</span>
 </pre></div>
 </div>
 </section>
@@ -1035,6 +1196,60 @@
 <span class="linenos">24</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Device</span>
 <span class="linenos">25</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGRecDevice</span>
 <span class="linenos">26</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Device</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-ecgelectrodes-src">
+<span id="id14"></span><h4><span class="section-number">1.3.2.7. </span>ECGElectrodes<a class="headerlink" href="#sec-ecgelectrodes-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-ecgelectrodes"><span class="std std-numref">Section 1.2.1.7</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">datasets</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference name of the corresponding electrode.</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">electrode_name</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VectorData</span>
+<span class="linenos"> 6</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Implementation location of the corresponding electrode.</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">electrode_location</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VectorData</span>
+<span class="linenos">10</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Descriptive information on the corresponding electrode</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">electrode_info</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VectorData</span>
+<span class="linenos">14</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Meta information of the electrodes from which the ECG signals are being recorded.</span>
+<span class="linenos">15</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">electrodes</span>
+<span class="linenos">16</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGElectrodes</span>
+<span class="linenos">17</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DynamicTable</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-ecgchannels-src">
+<span id="id15"></span><h4><span class="section-number">1.3.2.8. </span>ECGChannels<a class="headerlink" href="#sec-ecgchannels-src" title="Link to this heading">¶</a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.8.0)"><span class="xref std std-ref">DynamicTable</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-ecgchannels"><span class="std std-numref">Section 1.2.1.8</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">datasets</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference name of the corresponding recording channel.</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channel_name</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VectorData</span>
+<span class="linenos"> 6</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Type of the recording channel, e.g., single or differential.</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channel_type</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VectorData</span>
+<span class="linenos">10</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference of the electrodes involved in the corresponding recording channel.</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">involved_electrodes</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VectorData</span>
+<span class="linenos">14</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Descriptive information on the corresponding recording channel.</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos">16</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channel_info</span>
+<span class="linenos">17</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VectorData</span>
+<span class="linenos">18</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Meta information of the channels from which the CardiacSeries is obtained.</span>
+<span class="linenos">19</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">channels</span>
+<span class="linenos">20</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ECGChannels</span>
+<span class="linenos">21</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DynamicTable</span>
 </pre></div>
 </div>
 </section>

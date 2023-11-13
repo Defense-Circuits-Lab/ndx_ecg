@@ -24,10 +24,11 @@ ndx-ecg
       - TimeSeries
       - Device
       - NWBDataInterface
-      - NWBContainer
+      - LabMetaData
     - namespace: hdmf-common
       neurodata_types:
       - DynamicTable
+      - VectorData
     - source: ndx-ecg.extensions.yaml
     version: 0.1.0
 

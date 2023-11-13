@@ -6,12 +6,17 @@ Type Hierarchy
 * :ref:`Container <sec-Container>`
 
    * :ref:`DynamicTable <sec-DynamicTable>`
+
+      * :ref:`ECGChannels <sec-ECGChannels>`
+      * :ref:`ECGElectrodes <sec-ECGElectrodes>`
    * :ref:`NWBContainer <sec-NWBContainer>`
 
       * :ref:`Device <sec-Device>`
 
          * :ref:`ECGRecDevice <sec-ECGRecDevice>`
-      * :ref:`ECGChannelsGroup <sec-ECGChannelsGroup>`
+      * :ref:`LabMetaData <sec-LabMetaData>`
+
+         * :ref:`ECGRecordingGroup <sec-ECGRecordingGroup>`
       * :ref:`NWBDataInterface <sec-NWBDataInterface>`
 
          * :ref:`AuxiliaryAnalysis <sec-AuxiliaryAnalysis>`

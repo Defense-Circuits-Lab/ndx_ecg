@@ -53,10 +53,10 @@ CardiacSeries
     doc: A group to store standardized cardiac time-series, e.g., ECG and HeartRate, including
       acquisitions, processed cardiac series or auxiliary analysis.
     links:
-    - doc: Link to the ECGChannelsGroup as a reference for recording channels, recording
+    - doc: Link to the ECGRecordingGroup as a reference for recording channels, recording
         electrodes and the recording device.
-      name: channels_group
-      target_type: ECGChannelsGroup
+      name: recording_group
+      target_type: ECGRecordingGroup
     neurodata_type_def: CardiacSeries
     neurodata_type_inc: TimeSeries
 

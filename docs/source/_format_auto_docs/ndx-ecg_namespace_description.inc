@@ -17,9 +17,9 @@ ndx-ecg
 
 - **Schema:**
     - **namespace:** core 
-    - **neurodata_types:** ['TimeSeries', 'Device', 'NWBDataInterface', 'NWBContainer'] 
+    - **neurodata_types:** ['TimeSeries', 'Device', 'NWBDataInterface', 'LabMetaData'] 
     - **namespace:** hdmf-common 
-    - **neurodata_types:** ['DynamicTable'] 
+    - **neurodata_types:** ['DynamicTable', 'VectorData'] 
     - **source:** ndx-ecg.extensions.yaml 
 
 

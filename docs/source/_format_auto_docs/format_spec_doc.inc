@@ -38,13 +38,25 @@ ndx-ecg.extensions.yaml
 
     \clearpage \newpage
 
-.. include:: _format_auto_docs/ECGChannelsGroup_description.inc
+.. include:: _format_auto_docs/ECGRecordingGroup_description.inc
 
 .. raw:: latex
 
     \clearpage \newpage
 
 .. include:: _format_auto_docs/ECGRecDevice_description.inc
+
+.. raw:: latex
+
+    \clearpage \newpage
+
+.. include:: _format_auto_docs/ECGElectrodes_description.inc
+
+.. raw:: latex
+
+    \clearpage \newpage
+
+.. include:: _format_auto_docs/ECGChannels_description.inc
 
 .. raw:: latex
 
