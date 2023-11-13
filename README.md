@@ -7,7 +7,11 @@ This extension is developed to extend NWB data standards to incorporate ECG reco
 </div>
 
 ## Installation
-Simply clone the repo and navigate to the root directory, then:
+Can be installed directly from PyPI:
+```
+pip install ndx-ecg
+```
+or simply clone the repo and navigate to the root directory, then:
 ```
 pip install .
 ```
